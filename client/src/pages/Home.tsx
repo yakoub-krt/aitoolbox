@@ -1,5 +1,7 @@
 import ArticleCard, { ArticlePreview } from "@/components/ArticleCard";
 import BlogShell from "@/components/BlogShell";
+import NewsletterForm from "@/components/NewsletterForm";
+import AdSlot from "@/components/AdSlot";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -43,6 +45,8 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="container"><AdSlot placement="home" /></section>
+
       <section className="container py-16">
         <div className="mb-8 flex items-end justify-between gap-4"><div><p className="text-sm font-semibold text-violet-300">ابدأ من هدفك</p><h2 className="mt-2 font-display text-3xl font-bold text-white">الأقسام الرئيسية</h2></div><span className="hidden text-sm text-slate-500 md:block">{sections?.length ?? 5} مسارات عملية</span></div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -54,6 +58,7 @@ export default function Home() {
         <div className="mb-8 flex items-center justify-between"><div><p className="text-sm font-semibold text-cyan-300">من AIToolBox</p><h2 className="mt-2 font-display text-3xl font-bold text-white">أحدث ما نُشر</h2></div><Link href="/search" className="flex items-center gap-1 text-sm font-semibold text-violet-200 hover:text-white">كل المقالات <ArrowLeft className="h-4 w-4" /></Link></div>
         {isLoading ? <ArticleGridSkeleton /> : featured ? <><ArticleCard article={featured} featured /><div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{recent.map(article => <ArticleCard key={article.id} article={article} />)}</div></> : <div className="rounded-3xl border border-dashed border-white/15 p-12 text-center text-slate-400">ستظهر المقالات هنا فور تجهيزها.</div>}
       </section>
+      <section className="container pb-4"><NewsletterForm /></section>
     </BlogShell>
   );
 }

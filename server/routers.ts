@@ -5,6 +5,8 @@ import { publicProcedure, router } from "./_core/trpc";
 import { adminRouter } from "./routers/admin";
 import { blogRouter } from "./routers/blog";
 import { contactRouter } from "./routers/contact";
+import { newsletterRouter } from "./routers/newsletter";
+import { toolsRouter } from "./routers/tools";
 
 export const appRouter = router({
   system: systemRouter,
@@ -19,7 +21,8 @@ export const appRouter = router({
   blog: blogRouter,
   admin: adminRouter,
   contact: contactRouter,
+  newsletter: newsletterRouter,
+  tools: toolsRouter,
 });
 
 export type AppRouter = typeof appRouter;
-

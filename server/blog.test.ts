@@ -5,11 +5,16 @@ import type { TrpcContext } from "./_core/context";
 const mocks = vi.hoisted(() => ({
   createArticle: vi.fn(),
   deleteArticle: vi.fn(),
+  getArticleForNewsletter: vi.fn(),
+  getArticlePublicationStatus: vi.fn(),
   getPublishedArticleBySlug: vi.fn(),
+  listNewsletterRecipients: vi.fn(),
   listAdminArticles: vi.fn(),
   listPublishedArticles: vi.fn(),
   listSections: vi.fn(),
   updateArticle: vi.fn(),
+  updateSubscriberResendContact: vi.fn(),
+  markNewsletterSent: vi.fn(),
   createContactMessage: vi.fn(),
 }));
 
@@ -62,7 +67,7 @@ describe("نظام مقالات AIToolBox", () => {
     mocks.createArticle.mockResolvedValue(undefined);
     const caller = appRouter.createCaller(contextFor("admin"));
 
-    await expect(caller.admin.createArticle(articleInput)).resolves.toEqual({ success: true });
+    await expect(caller.admin.createArticle(articleInput)).resolves.toMatchObject({ success: true });
     expect(mocks.createArticle).toHaveBeenCalledWith(articleInput);
   });
 

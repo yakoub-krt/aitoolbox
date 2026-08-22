@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import NewsletterForm from "@/components/NewsletterForm";
 import { BookOpen, Search, Sparkles } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { Link, useLocation } from "wouter";
@@ -10,6 +11,8 @@ const navItems = [
   { label: "الفيديو", path: "/sections/video" },
   { label: "المقارنات", path: "/sections/comparisons" },
   { label: "الإنتاجية", path: "/sections/productivity" },
+  { label: "دليل الأدوات", path: "/tools" },
+  { label: "المقارنة", path: "/compare" },
 ];
 
 export default function BlogShell({ children }: { children: React.ReactNode }) {
@@ -82,6 +85,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
           <div>
             <div className="mb-4 flex items-center gap-2 text-white"><BookOpen className="h-5 w-5 text-violet-300" /><strong className="font-display">AIToolBox</strong></div>
             <p className="max-w-md text-sm leading-7 text-slate-400">مدونة عربية عملية تساعدك على اختيار أدوات الذكاء الاصطناعي، تجربتها، وتوظيفها في الدراسة والعمل والإبداع.</p>
+            <NewsletterForm compact />
           </div>
           <div>
             <p className="mb-4 text-sm font-bold text-slate-200">المدونة</p>

@@ -44,6 +44,7 @@ export const articles = mysqlTable(
     isPublished: boolean("isPublished").notNull().default(true),
     publishedAt: timestamp("publishedAt").defaultNow().notNull(),
     lastReviewedAt: timestamp("lastReviewedAt"),
+    newsletterSentAt: timestamp("newsletterSentAt"),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
     updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   },
@@ -62,7 +63,62 @@ export const contactMessages = mysqlTable("contactMessages", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const subscribers = mysqlTable(
+  "subscribers",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    email: varchar("email", { length: 320 }).notNull(),
+    status: mysqlEnum("status", ["subscribed", "unsubscribed"]).notNull().default("subscribed"),
+    consentAt: timestamp("consentAt").defaultNow().notNull(),
+    unsubscribedAt: timestamp("unsubscribedAt"),
+    unsubscribeToken: varchar("unsubscribeToken", { length: 128 }).notNull(),
+    resendContactId: varchar("resendContactId", { length: 128 }),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => ({
+    emailUnique: uniqueIndex("subscribers_email_unique").on(table.email),
+    unsubscribeTokenUnique: uniqueIndex("subscribers_unsubscribe_token_unique").on(table.unsubscribeToken),
+    statusIndex: index("subscribers_status_idx").on(table.status),
+  }),
+);
+
+export const newsletterSettings = mysqlTable("newsletterSettings", {
+  id: int("id").autoincrement().primaryKey(),
+  resendSegmentId: varchar("resendSegmentId", { length: 128 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const tools = mysqlTable(
+  "tools",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    name: varchar("name", { length: 120 }).notNull(),
+    slug: varchar("slug", { length: 160 }).notNull(),
+    category: mysqlEnum("category", ["writing", "images", "video", "productivity", "research"]).notNull(),
+    priceModel: mysqlEnum("priceModel", ["free", "freemium", "paid"]).notNull().default("freemium"),
+    arabicSupport: mysqlEnum("arabicSupport", ["yes", "partial", "unknown"]).notNull().default("unknown"),
+    websiteUrl: varchar("websiteUrl", { length: 500 }).notNull(),
+    shortDescription: text("shortDescription").notNull(),
+    bestFor: text("bestFor").notNull(),
+    editorialNotes: text("editorialNotes").notNull(),
+    limitations: text("limitations").notNull(),
+    colorTone: varchar("colorTone", { length: 32 }).notNull().default("violet"),
+    isFeatured: boolean("isFeatured").notNull().default(false),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => ({
+    slugUnique: uniqueIndex("tools_slug_unique").on(table.slug),
+    categoryIndex: index("tools_category_idx").on(table.category),
+    featuredIndex: index("tools_featured_idx").on(table.isFeatured),
+  }),
+);
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Section = typeof sections.$inferSelect;
 export type Article = typeof articles.$inferSelect;
+export type Subscriber = typeof subscribers.$inferSelect;
+export type Tool = typeof tools.$inferSelect;

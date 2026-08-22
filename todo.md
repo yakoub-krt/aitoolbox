@@ -18,3 +18,21 @@
 - [x] Test social sharing URL generation, link copying feedback, and the article-page layout after the update.
 - [x] Add a mobile-native article share button using the Web Share API with a graceful fallback to existing sharing controls.
 - [x] Test Web Share feature detection, share payload generation, responsive layout, and fallback behavior.
+- [x] Define consent-aware subscriber data and database migration for email newsletter registrations.
+- [x] Add public newsletter subscription procedures with email validation, duplicate handling, and privacy-safe responses.
+- [x] Add responsive Arabic newsletter forms to the homepage and footer with loading, success, and error feedback.
+- [x] Add protected subscriber management to the admin dashboard.
+- [ ] Connect a verified email provider for newsletter delivery and document the required sender-domain configuration.
+- [ ] Test subscription validation, duplicate handling, database persistence, and the newsletter interface.
+- [ ] Integrate Resend for automatic newsletter delivery when an administrator publishes a new article.
+- [ ] Request and validate the Resend API key and verified sender address before enabling live delivery.
+- [x] Define a structured tool directory data model covering category, pricing, Arabic support, website, and factual editorial notes.
+- [x] Create database procedures and protected management for adding, editing, and deleting tool-directory entries.
+- [x] Build a public Arabic tool directory with category, pricing, and Arabic-support filters.
+- [x] Build a side-by-side comparison page that accepts selected tools and compares decision criteria clearly.
+- [x] Seed a curated starter set of tools with factual links, without fabricated customer ratings or reviews.
+- [x] Test directory filtering, comparison selection, protected management, and responsive presentation.
+- [x] Add responsive, non-intrusive AdSense placement components for the homepage and article pages.
+- [x] Load the AdSense script only when a publisher ID is configured and avoid rendering empty ad placeholders otherwise.
+- [ ] Request the Google AdSense publisher ID and validate responsive ad integration before live activation.
+- [ ] Activate Google AdSense only after the owner provides a publisher ID, valid ad slots, and a permanent verified domain.

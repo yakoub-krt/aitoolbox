@@ -15,6 +15,20 @@
       "when": 1787374028999,
       "tag": "0001_supreme_scalphunter",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1787375709976,
+      "tag": "0002_blue_nick_fury",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1787376879283,
+      "tag": "0003_gorgeous_doctor_faustus",
+      "breakpoints": true
     }
   ]
 }
