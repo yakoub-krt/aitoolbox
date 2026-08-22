@@ -1,6 +1,6 @@
-import { copyShareLink, createShareLinks } from "@/lib/shareLinks";
+import { canUseNativeShare, copyShareLink, createShareLinks, shareWithNativeDialog } from "@/lib/shareLinks";
 import { Check, Copy, Facebook, Linkedin, MessageCircle, Send, Share2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ShareButtonsProps = {
   title: string;
@@ -16,8 +16,13 @@ const shareOptions = [
 
 export default function ShareButtons({ title, path }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
+  const [nativeShareAvailable, setNativeShareAvailable] = useState(false);
   const url = typeof window === "undefined" ? path : `${window.location.origin}${path}`;
   const links = useMemo(() => createShareLinks(title, url), [title, url]);
+
+  useEffect(() => {
+    setNativeShareAvailable(canUseNativeShare(navigator));
+  }, []);
 
   async function copyArticleLink() {
     try {
@@ -29,9 +34,21 @@ export default function ShareButtons({ title, path }: ShareButtonsProps) {
     }
   }
 
+  async function openNativeShareDialog() {
+    try {
+      await shareWithNativeDialog(
+        { title, text: `اقرأ هذا المقال من AIToolBox: ${title}`, url },
+        navigator.share?.bind(navigator),
+      );
+    } catch {
+      // إلغاء المستخدم لواجهة المشاركة ليس خطأً يحتاج إلى تنبيه؛ تبقى البدائل ظاهرة دائماً.
+    }
+  }
+
   return (
     <div className="mt-7 flex flex-wrap items-center gap-2" aria-label="مشاركة المقال">
       <span className="ml-1 flex items-center gap-1.5 text-xs font-semibold text-slate-400"><Share2 className="h-4 w-4 text-violet-300" />شارك المقال</span>
+      {nativeShareAvailable && <button type="button" onClick={openNativeShareDialog} className="flex h-9 items-center gap-1.5 rounded-xl border border-violet-300/35 bg-violet-400/10 px-3 text-xs font-bold text-violet-100 transition hover:bg-violet-400/20 md:hidden" aria-label="فتح خيارات المشاركة في الهاتف"><Share2 className="h-4 w-4" />مشاركة</button>}
       {shareOptions.map(option => {
         const Icon = option.icon;
         return (

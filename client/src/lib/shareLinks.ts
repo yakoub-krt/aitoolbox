@@ -21,3 +21,25 @@ export async function copyShareLink(
   if (!clipboardWriter) throw new Error("نسخ الرابط غير مدعوم في هذا المتصفح.");
   await clipboardWriter(url);
 }
+
+export type NativeSharePayload = {
+  title: string;
+  text: string;
+  url: string;
+};
+
+type NativeShareNavigator = {
+  share?: (payload: NativeSharePayload) => Promise<void>;
+};
+
+export function canUseNativeShare(browserNavigator: NativeShareNavigator | undefined): boolean {
+  return typeof browserNavigator?.share === "function";
+}
+
+export async function shareWithNativeDialog(
+  payload: NativeSharePayload,
+  share?: (payload: NativeSharePayload) => Promise<void>,
+): Promise<void> {
+  if (!share) throw new Error("المشاركة الأصلية غير مدعومة في هذا المتصفح.");
+  await share(payload);
+}

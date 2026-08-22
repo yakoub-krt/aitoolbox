@@ -16,3 +16,5 @@
 - [x] Save a final project checkpoint and provide the preview link.
 - [x] Add accessible article-sharing controls for X, Facebook, LinkedIn, WhatsApp, and copying the article link.
 - [x] Test social sharing URL generation, link copying feedback, and the article-page layout after the update.
+- [x] Add a mobile-native article share button using the Web Share API with a graceful fallback to existing sharing controls.
+- [x] Test Web Share feature detection, share payload generation, responsive layout, and fallback behavior.

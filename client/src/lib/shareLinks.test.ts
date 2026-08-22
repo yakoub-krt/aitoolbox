@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { copyShareLink, createShareLinks } from "./shareLinks";
+import { canUseNativeShare, copyShareLink, createShareLinks, shareWithNativeDialog } from "./shareLinks";
 
 describe("createShareLinks", () => {
   it("ينشئ روابط مشاركة مرمزة للعناوين العربية", () => {
@@ -18,5 +18,15 @@ describe("createShareLinks", () => {
 
     await expect(copyShareLink(url, writer)).resolves.toBeUndefined();
     expect(writer).toHaveBeenCalledWith(url);
+  });
+
+  it("يتحقق من دعم واجهة المشاركة الأصلية ويمرر بيانات المقال إلى المتصفح", async () => {
+    const nativeShare = vi.fn().mockResolvedValue(undefined);
+    const payload = { title: "مقال عربي", text: "اقرأ هذا المقال", url: "https://aitoolbox.example/articles/arabic" };
+
+    expect(canUseNativeShare({ share: nativeShare })).toBe(true);
+    expect(canUseNativeShare({})).toBe(false);
+    await expect(shareWithNativeDialog(payload, nativeShare)).resolves.toBeUndefined();
+    expect(nativeShare).toHaveBeenCalledWith(payload);
   });
 });
