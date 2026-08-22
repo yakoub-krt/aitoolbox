@@ -13,8 +13,9 @@ const dateFormat = new Intl.DateTimeFormat("ar", { dateStyle: "long" });
 export default function ArticlePage() {
   const [, params] = useRoute("/articles/:slug");
   const slug = params?.slug ?? "";
-  const { data, isLoading, error } = trpc.blog.bySlug.useQuery({ slug });
+  const { data, isLoading, error } = trpc.blog.bySlug.useQuery({ slug: slug || "missing-article" }, { enabled: Boolean(slug) });
 
+  if (!slug) return <BlogShell><div className="container py-24 text-center"><h1 className="font-display text-3xl font-bold text-white">لم نجد هذا المقال</h1><Link href="/" className="mt-5 inline-flex items-center gap-2 text-violet-200"><ArrowRight className="h-4 w-4" />العودة إلى المدونة</Link></div></BlogShell>;
   if (isLoading) return <BlogShell><div className="container py-24"><div className="h-8 w-1/3 animate-pulse rounded bg-white/10" /><div className="mt-8 h-80 animate-pulse rounded-3xl bg-white/5" /></div></BlogShell>;
   if (error) return <BlogShell><div className="container py-24 text-center"><h1 className="font-display text-3xl font-bold text-white">تعذر تحميل المقال</h1><p className="mt-3 text-slate-400">يرجى المحاولة مرة أخرى بعد قليل.</p><Link href="/" className="mt-5 inline-flex items-center gap-2 text-violet-200"><ArrowRight className="h-4 w-4" />العودة إلى المدونة</Link></div></BlogShell>;
   if (!data) return <BlogShell><div className="container py-24 text-center"><h1 className="font-display text-3xl font-bold text-white">لم نجد هذا المقال</h1><Link href="/" className="mt-5 inline-flex items-center gap-2 text-violet-200"><ArrowRight className="h-4 w-4" />العودة إلى المدونة</Link></div></BlogShell>;

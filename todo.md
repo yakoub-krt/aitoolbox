@@ -23,8 +23,8 @@
 - [x] Add responsive Arabic newsletter forms to the homepage and footer with loading, success, and error feedback.
 - [x] Add protected subscriber management to the admin dashboard.
 - [ ] Connect a verified email provider for newsletter delivery and document the required sender-domain configuration.
-- [ ] Test subscription validation, duplicate handling, database persistence, and the newsletter interface.
-- [ ] Integrate Resend for automatic newsletter delivery when an administrator publishes a new article.
+- [x] Test subscription validation, duplicate handling, database persistence, and the newsletter interface.
+- [x] Integrate Resend for automatic newsletter delivery when an administrator publishes a new article.
 - [ ] Request and validate the Resend API key and verified sender address before enabling live delivery.
 - [x] Define a structured tool directory data model covering category, pricing, Arabic support, website, and factual editorial notes.
 - [x] Create database procedures and protected management for adding, editing, and deleting tool-directory entries.
