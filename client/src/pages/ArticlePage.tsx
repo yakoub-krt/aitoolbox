@@ -1,5 +1,6 @@
 import ArticleCard, { ArticlePreview } from "@/components/ArticleCard";
 import BlogShell from "@/components/BlogShell";
+import ShareButtons from "@/components/ShareButtons";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
 import { ArrowRight, CalendarDays, Clock3, RefreshCw, Tag } from "lucide-react";
@@ -25,6 +26,7 @@ export default function ArticlePage() {
       <h1 className="mt-6 font-display text-3xl font-black leading-[1.35] text-white md:text-5xl">{article.title}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-300">{article.excerpt}</p>
       <div className="mt-7 flex flex-wrap items-center gap-4 border-y border-white/10 py-4 text-xs text-slate-400"><span className="flex items-center gap-1.5"><CalendarDays className="h-4 w-4 text-violet-300" />نُشر {dateFormat.format(new Date(article.publishedAt))}</span><span className="flex items-center gap-1.5"><Clock3 className="h-4 w-4 text-cyan-300" />{article.readingTime} دقائق قراءة</span>{article.lastReviewedAt && <span className="flex items-center gap-1.5"><RefreshCw className="h-4 w-4 text-emerald-300" />آخر مراجعة {dateFormat.format(new Date(article.lastReviewedAt))}</span>}</div>
+      <ShareButtons title={article.title} path={`/articles/${article.slug}`} />
       <div className="article-prose mt-10"><Streamdown>{article.content}</Streamdown></div>
       <div className="mt-12 flex flex-wrap items-center gap-2 border-t border-white/10 pt-7"><Tag className="h-4 w-4 text-slate-500" />{keywords.map(keyword => <Badge key={keyword} variant="outline" className="border-white/10 bg-white/[0.03] text-slate-300">{keyword}</Badge>)}</div>
     </article>

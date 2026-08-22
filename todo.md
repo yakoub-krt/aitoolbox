@@ -14,3 +14,5 @@
 - [x] Add Vitest coverage for article validation and public/admin article procedures.
 - [x] Verify all public and admin routes, database interactions, mobile presentation, and build output.
 - [x] Save a final project checkpoint and provide the preview link.
+- [x] Add accessible article-sharing controls for X, Facebook, LinkedIn, WhatsApp, and copying the article link.
+- [x] Test social sharing URL generation, link copying feedback, and the article-page layout after the update.
