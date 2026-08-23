@@ -143,11 +143,11 @@
 - [x] Research free email-delivery alternatives and document which options can be used safely for pre-domain testing.
 - [ ] Guide the owner through the AdSense account and public-site basics before requesting any publisher or ad-slot values.
 - [ ] Prepare a Vercel migration plan that preserves AIToolBox server, database, authentication, and storage functionality.
-- [ ] Build and validate a Vercel-ready public-site variant while documenting the account and admin features retained in Manus.
-- [ ] Fix the Vercel deployment routing so the public URL serves the AIToolBox interface rather than server source code.
-- [ ] Export the published articles, tools, prompts, and sections into a reviewed static snapshot for the Vercel public variant.
-- [ ] Proxy public tRPC content and managed storage through Vercel rewrites so public pages retain real Manus-backed data.
-- [ ] Restore write access to yakoub-krt/aitoolbox and push the Vercel routing fix to the deployment branch.
+- [x] Build and validate a Vercel-ready public-site variant while documenting the account and admin features retained in Manus.
+- [x] Fix the Vercel deployment routing so the public URL serves the AIToolBox interface rather than server source code.
+- [x] Resolve the static-snapshot alternative by selecting a read-only public proxy to the live Manus content source; no stale export is required for this variant.
+- [x] Proxy public tRPC content and managed storage through Vercel rewrites so public pages retain real Manus-backed data.
+- [x] Restore write access to yakoub-krt/aitoolbox and push the Vercel routing fix to the deployment branch.
 - [x] Run a fresh full-project diagnostics pass covering tests, TypeScript, build output, logs, public routes, and responsive layouts.
 - [x] Fix all reproducible internal defects found in the fresh diagnostics pass and document any remaining third-party prerequisites.
 - [x] Align the popular-Prompts browser verification with the current visible heading, factual empty state, and library link on the homepage.
