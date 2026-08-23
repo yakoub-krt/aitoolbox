@@ -94,3 +94,7 @@
 - [x] Verify the populated and empty «الأكثر شيوعاً» sections on desktop and mobile, then capture evidence before saving.
 - [x] Run a safe, reversible end-to-end verification using real non-zero copy counts, then restore all original prompt counts.
 - [x] Capture desktop and mobile evidence for the populated section using real popularity data before saving.
+- [x] Define a practical seven-day Arabic AI learning path for beginners with clear daily outcomes and safe-use guidance.
+- [x] Build an interactive learning-plan page with day completion tracking and a local saved-progress fallback.
+- [x] Link each learning day to relevant AIToolBox articles or official tool pages and show the “By Yakoub Kartouche” credit.
+- [x] Add learning-plan navigation from the homepage and verify desktop/mobile progress behavior.
