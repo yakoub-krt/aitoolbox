@@ -1,15 +1,44 @@
 import ArticleCard, { ArticlePreview } from "@/components/ArticleCard";
 import BlogShell from "@/components/BlogShell";
 import AdSlot from "@/components/AdSlot";
+import ArticleTableOfContents from "@/components/ArticleTableOfContents";
 import SaveButton from "@/components/SaveButton";
 import ShareButtons from "@/components/ShareButtons";
 import { Badge } from "@/components/ui/badge";
+import { getArticleHeadings, getHeadingIdAtPosition, normalizeHeadingText, type ArticleHeading } from "@/lib/articleToc";
 import { trpc } from "@/lib/trpc";
 import { ArrowRight, CalendarDays, Clock3, RefreshCw, Tag } from "lucide-react";
+import { type ReactNode } from "react";
 import { Streamdown } from "streamdown";
 import { Link, useRoute } from "wouter";
 
 const dateFormat = new Intl.DateTimeFormat("ar", { dateStyle: "long" });
+
+function getHeadingText(children: ReactNode): string {
+  if (typeof children === "string" || typeof children === "number") return String(children);
+  if (Array.isArray(children)) return children.map(getHeadingText).join("");
+  if (children && typeof children === "object" && "props" in children) {
+    return getHeadingText((children as { props?: { children?: ReactNode } }).props?.children ?? "");
+  }
+  return "";
+}
+
+function ArticleMarkdown({ content, headings }: { content: string; headings: ArticleHeading[] }) {
+  const headingOccurrences = new Map<string, number>();
+  const getRenderedHeadingId = (children: ReactNode) => {
+    const text = normalizeHeadingText(getHeadingText(children));
+    const occurrence = headingOccurrences.get(text) ?? 0;
+    headingOccurrences.set(text, occurrence + 1);
+    return getHeadingIdAtPosition(headings, text, occurrence);
+  };
+
+  const components = {
+    h2: ({ children, node: _node, ...props }: { children?: ReactNode; node?: unknown }) => <h2 {...props} id={getRenderedHeadingId(children)}>{children}</h2>,
+    h3: ({ children, node: _node, ...props }: { children?: ReactNode; node?: unknown }) => <h3 {...props} id={getRenderedHeadingId(children)}>{children}</h3>,
+  };
+
+  return <Streamdown components={components}>{content}</Streamdown>;
+}
 
 export default function ArticlePage() {
   const [, params] = useRoute("/articles/:slug");
@@ -23,6 +52,7 @@ export default function ArticlePage() {
 
   const { article, related } = data;
   const keywords = article.keywords.split(",").map(item => item.trim()).filter(Boolean);
+  const headings = getArticleHeadings(article.content);
   return <BlogShell>
     <article className="container max-w-4xl py-12 md:py-18">
       <Link href={article.sectionSlug ? `/sections/${article.sectionSlug}` : "/"} className="inline-flex items-center gap-2 text-sm font-semibold text-violet-200 hover:text-white"><ArrowRight className="h-4 w-4" />{article.sectionName ?? "كل المقالات"}</Link>
@@ -31,7 +61,8 @@ export default function ArticlePage() {
       <div className="mt-7 flex flex-wrap items-center gap-4 border-y border-white/10 py-4 text-xs text-slate-400"><span className="flex items-center gap-1.5"><CalendarDays className="h-4 w-4 text-violet-300" />نُشر {dateFormat.format(new Date(article.publishedAt))}</span><span className="flex items-center gap-1.5"><Clock3 className="h-4 w-4 text-cyan-300" />{article.readingTime} دقائق قراءة</span>{article.lastReviewedAt && <span className="flex items-center gap-1.5"><RefreshCw className="h-4 w-4 text-emerald-300" />آخر مراجعة {dateFormat.format(new Date(article.lastReviewedAt))}</span>}</div>
       <ShareButtons title={article.title} path={`/articles/${article.slug}`} />
       <div className="mt-3"><SaveButton item={{ kind: "article", id: article.id, label: article.title, href: `/articles/${article.slug}` }} /></div>
-      <div className="article-prose mt-10"><Streamdown>{article.content}</Streamdown></div>
+      <ArticleTableOfContents headings={headings} />
+      <div className="article-prose mt-10"><ArticleMarkdown content={article.content} headings={headings} /></div>
       <AdSlot placement="article" />
       <div className="mt-12 flex flex-wrap items-center gap-2 border-t border-white/10 pt-7"><Tag className="h-4 w-4 text-slate-500" />{keywords.map(keyword => <Badge key={keyword} variant="outline" className="border-white/10 bg-white/[0.03] text-slate-300">{keyword}</Badge>)}</div>
     </article>

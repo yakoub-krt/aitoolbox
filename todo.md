@@ -57,3 +57,9 @@
 - [ ] Build an interactive learning-plan page with day completion tracking and a local saved-progress fallback.
 - [ ] Link each learning day to relevant AIToolBox articles or official tool pages and show the “By Yakoub Kartouche” credit.
 - [ ] Add learning-plan navigation from the homepage and verify desktop/mobile progress behavior.
+- [x] Review the article Markdown rendering path and identify a reliable heading-to-anchor strategy for Arabic section titles.
+- [x] Add an accessible interactive table of contents at the beginning of every article, with smooth in-page navigation and an active-section state.
+- [x] Add unit coverage for table-of-contents heading extraction and anchor generation, then verify desktop and mobile article presentation.
+- [x] Unify TOC link generation and rendered heading IDs so repeated section titles retain unique working anchors.
+- [x] Add coverage proving duplicate-heading TOC entries resolve to the matching rendered heading IDs.
+- [x] Verify the TOC on an additional long-form article for desktop and mobile, including a table-heavy guide.
