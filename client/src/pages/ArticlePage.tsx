@@ -8,7 +8,7 @@ import ShareButtons from "@/components/ShareButtons";
 import { Badge } from "@/components/ui/badge";
 import { getArticleHeadings, getHeadingIdAtPosition, normalizeHeadingText, type ArticleHeading } from "@/lib/articleToc";
 import { trpc } from "@/lib/trpc";
-import { ArrowRight, CalendarDays, Clock3, RefreshCw, Tag } from "lucide-react";
+import { ArrowRight, BookOpenCheck, CalendarDays, Clock3, Compass, RefreshCw, Tag, Wand2 } from "lucide-react";
 import { type ReactNode } from "react";
 import { Streamdown } from "streamdown";
 import { Link, useRoute } from "wouter";
@@ -36,9 +36,16 @@ function ArticleMarkdown({ content, headings }: { content: string; headings: Art
   const components = {
     h2: ({ children, node: _node, ...props }: { children?: ReactNode; node?: unknown }) => <h2 {...props} id={getRenderedHeadingId(children)}>{children}</h2>,
     h3: ({ children, node: _node, ...props }: { children?: ReactNode; node?: unknown }) => <h3 {...props} id={getRenderedHeadingId(children)}>{children}</h3>,
+    img: ({ src, alt }: { src?: string; alt?: string }) => src ? <img src={src} alt={alt ?? ""} loading="lazy" /> : null,
   };
 
   return <Streamdown components={components}>{content}</Streamdown>;
+}
+
+function extractLeadingArticleImage(content: string) {
+  const match = content.match(/^!\[([^\]]*)\]\((\/manus-storage\/[^)]+)\)\s*/);
+  if (!match) return { content, image: null };
+  return { content: content.slice(match[0].length), image: { alt: match[1], src: match[2] } };
 }
 
 export default function ArticlePage() {
@@ -52,8 +59,9 @@ export default function ArticlePage() {
   if (!data) return <BlogShell><div className="container py-24 text-center"><h1 className="font-display text-3xl font-bold text-white">لم نجد هذا المقال</h1><Link href="/" className="mt-5 inline-flex items-center gap-2 text-violet-200"><ArrowRight className="h-4 w-4" />العودة إلى المدونة</Link></div></BlogShell>;
 
   const { article, related } = data;
+  const renderedContent = extractLeadingArticleImage(article.content);
   const keywords = article.keywords.split(",").map(item => item.trim()).filter(Boolean);
-  const headings = getArticleHeadings(article.content);
+  const headings = getArticleHeadings(renderedContent.content);
   return <BlogShell>
     <ArticleReadingControls articleId="article-reading-surface" tocId="article-toc" />
     <article id="article-reading-surface" className="container max-w-4xl py-12 md:py-18">
@@ -63,8 +71,10 @@ export default function ArticlePage() {
       <div className="mt-7 flex flex-wrap items-center gap-4 border-y border-white/10 py-4 text-xs text-slate-400"><span className="flex items-center gap-1.5"><CalendarDays className="h-4 w-4 text-violet-300" />نُشر {dateFormat.format(new Date(article.publishedAt))}</span><span className="flex items-center gap-1.5"><Clock3 className="h-4 w-4 text-cyan-300" />{article.readingTime} دقائق قراءة</span>{article.lastReviewedAt && <span className="flex items-center gap-1.5"><RefreshCw className="h-4 w-4 text-emerald-300" />آخر مراجعة {dateFormat.format(new Date(article.lastReviewedAt))}</span>}</div>
       <ShareButtons title={article.title} path={`/articles/${article.slug}`} />
       <div className="mt-3"><SaveButton item={{ kind: "article", id: article.id, label: article.title, href: `/articles/${article.slug}` }} /></div>
+      {renderedContent.image && <img src={renderedContent.image.src} alt={renderedContent.image.alt} className="mt-7 w-full rounded-[1.5rem] border border-cyan-300/20 bg-[#0a0e23] shadow-[0_18px_46px_rgba(0,0,0,.25)]" />}
       <ArticleTableOfContents headings={headings} />
-      <div className="article-prose mt-10"><ArticleMarkdown content={article.content} headings={headings} /></div>
+      <div className="article-prose mt-10"><ArticleMarkdown content={renderedContent.content} headings={headings} /></div>
+      {article.slug === "start-ai-project" && <section className="article-project-links mt-12 rounded-[1.7rem] border border-cyan-300/20 bg-[radial-gradient(circle_at_12%_20%,rgba(34,211,238,.12),transparent_26%),#0a1026] p-6 md:p-7"><p className="text-sm font-bold text-cyan-200">حوّل الفكرة إلى خطوة تالية</p><h2 className="mt-2 font-display text-2xl font-black text-white">ثلاثة مسارات مفيدة قبل بناء النسخة الأولى</h2><div className="mt-5 grid gap-3 md:grid-cols-3"><Link href="/advisor" className="rounded-2xl border border-white/10 bg-black/15 p-4 transition hover:border-cyan-300/40 hover:bg-cyan-300/[0.08]"><Compass className="h-5 w-5 text-cyan-100" /><strong className="mt-4 block text-white">اختر أداة مناسبة</strong><span className="mt-1 block text-xs leading-6 text-slate-400">حدد المهمة والميزانية قبل التجربة.</span></Link><Link href="/prompt-customizer" className="rounded-2xl border border-white/10 bg-black/15 p-4 transition hover:border-violet-300/40 hover:bg-violet-300/[0.08]"><Wand2 className="h-5 w-5 text-violet-100" /><strong className="mt-4 block text-white">اصنع Prompt للعمل</strong><span className="mt-1 block text-xs leading-6 text-slate-400">ابدأ بمسودة واضحة ثم حررها.</span></Link><Link href="/learning-plan" className="rounded-2xl border border-white/10 bg-black/15 p-4 transition hover:border-emerald-300/40 hover:bg-emerald-300/[0.08]"><BookOpenCheck className="h-5 w-5 text-emerald-100" /><strong className="mt-4 block text-white">ثبّت الأساسيات</strong><span className="mt-1 block text-xs leading-6 text-slate-400">تعلم مراجعة المخرجات خطوة بخطوة.</span></Link></div></section>}
       <AdSlot placement="article" />
       <div className="mt-12 flex flex-wrap items-center gap-2 border-t border-white/10 pt-7"><Tag className="h-4 w-4 text-slate-500" />{keywords.map(keyword => <Badge key={keyword} variant="outline" className="border-white/10 bg-white/[0.03] text-slate-300">{keyword}</Badge>)}</div>
     </article>

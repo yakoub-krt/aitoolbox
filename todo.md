@@ -115,3 +115,6 @@
 - [x] Expand every student-workspace tool into a feature-rich interactive workflow with editable inputs, useful generated outputs, and clear actions.
 - [x] Build a student tools directory organised by specialisation with trusted direct links and study-focused use cases.
 - [x] Add student-directory navigation, tests, and desktop/mobile verification.
+- [ ] Curate verified official links for useful sites and free alternatives, grouped by task with transparent free-tier notes.
+- [ ] Build a filterable sites-and-free-alternatives directory with navigation, tests, and desktop/mobile verification.
+- [x] Create a visually engaging 8,000–10,000-character Arabic guide on starting a project with AI, including a managed educational image and internal resource links.
