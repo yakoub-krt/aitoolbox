@@ -108,3 +108,4 @@
 - [x] Add coverage and browser verification proving all seven expanded days and their progress controls remain usable.
 - [x] Define and generate seven consistent, text-free educational visuals that support each learning day without increasing page clutter.
 - [x] Integrate the generated visuals through managed static asset URLs and verify their responsive display in the expanded lessons.
+- [x] Fix the learning-plan image loading issue reported for days 3–7, verify all seven images render, and save a corrective checkpoint.
