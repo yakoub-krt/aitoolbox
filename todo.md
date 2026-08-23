@@ -98,3 +98,7 @@
 - [x] Build an interactive learning-plan page with day completion tracking and a local saved-progress fallback.
 - [x] Link each learning day to relevant AIToolBox articles or official tool pages and show the “By Yakoub Kartouche” credit.
 - [x] Add learning-plan navigation from the homepage and verify desktop/mobile progress behavior.
+- [x] Review the existing homepage content and define a clear landing-page conversion sequence for new visitors.
+- [x] Redesign the hero, three visitor paths, trust section, popular content, and registration call to action with purposeful Arabic copy.
+- [x] Preserve live sections for tools, prompts, and articles while connecting every major CTA to an implemented destination.
+- [x] Add landing-page browser verification and desktop/mobile visual review before saving the update.
