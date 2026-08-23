@@ -133,3 +133,8 @@
 - [x] Assess Vercel compatibility for the current Express, database, and Manus OAuth architecture before external deployment.
 - [x] Prepare deployment documentation for the selected hosting path without publishing the site automatically.
 - [x] Create and verify a concrete non-publishing deployment guide covering Manus and the prerequisites for a Vercel migration.
+- [x] Archive the old toolaibox update path after the owner selected yakoub-krt/aitoolbox as the final repository destination; no additional update was required for the old repository.
+- [x] Archive the old toolaibox authorization path after the owner selected the new GitHub account as the final destination.
+- [ ] Move the complete AIToolBox project history and current snapshot to a new owner-specified GitHub repository after confirming write access.
+- [x] Verify write access to yakoub-krt/aitoolbox before adding it as the final GitHub destination.
+- [x] Issue and complete a fresh GitHub device authorization for yakoub-krt after the prior code expired.
