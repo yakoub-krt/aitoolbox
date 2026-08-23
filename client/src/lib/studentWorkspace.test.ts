@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildConceptPrompt, buildFlashcards, buildReviewPrompt, buildStudyPlan } from "./studentWorkspace";
+import { buildConceptMap, buildConceptPrompt, buildFlashcards, buildReviewPrompt, buildReviewQuestions, buildStudyPlan } from "./studentWorkspace";
 
 describe("student workspace", () => {
   it("ينشئ جلسة مذاكرة زمنية من أربع مراحل", () => {
@@ -18,5 +18,19 @@ describe("student workspace", () => {
     const cards = buildFlashcards("الدوال");
     expect(cards).toHaveLength(3);
     expect(cards[0]?.question).toContain("الدوال");
+  });
+
+  it("ينشئ أسئلة مراجعة قابلة للتبديل حسب النمط", () => {
+    const questions = buildReviewQuestions("الطاقة", "تطبيق ومقارنة", 5);
+    expect(questions).toHaveLength(5);
+    expect(questions[0]?.prompt).toContain("الطاقة");
+    expect(questions[0]?.hint).toContain("مصدرك");
+  });
+
+  it("ينشئ خريطة مفهوم بأربع زوايا للفهم", () => {
+    const map = buildConceptMap("الدالة", "متوسط");
+    expect(map.definition).toContain("الدالة");
+    expect(map.example).toContain("الدالة");
+    expect(map.check).toContain("الدالة");
   });
 });
