@@ -176,6 +176,7 @@ export const prompts = mysqlTable(
     isPublished: boolean("isPublished").notNull().default(true),
     colorTone: varchar("colorTone", { length: 32 }).notNull().default("violet"),
     sortOrder: int("sortOrder").notNull().default(0),
+    copyCount: int("copyCount").notNull().default(0),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
     updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   },
@@ -183,6 +184,7 @@ export const prompts = mysqlTable(
     slugUnique: uniqueIndex("prompts_slug_unique").on(table.slug),
     publicIndex: index("prompts_public_idx").on(table.isPublished, table.isFree, table.sortOrder),
     filterIndex: index("prompts_filter_idx").on(table.category, table.language),
+    popularityIndex: index("prompts_popularity_idx").on(table.isPublished, table.isFree, table.copyCount),
   }),
 );
 

@@ -34,9 +34,11 @@ export default function PromptsLibraryPage() {
   const [language, setLanguage] = useState<"" | Language>("");
   const [search, setSearch] = useState("");
   const [copiedId, setCopiedId] = useState<number | null>(null);
+  const utils = trpc.useUtils();
   const deferredSearch = useDeferredValue(search.trim());
   const queryInput = useMemo(() => ({ category: category || undefined, language: language || undefined, search: deferredSearch || undefined }), [category, language, deferredSearch]);
   const { data: prompts, isLoading, error } = trpc.prompts.list.useQuery(queryInput);
+  const recordCopy = trpc.prompts.recordCopy.useMutation({ onSuccess: () => utils.prompts.popular.invalidate() });
   const hasFilters = Boolean(category || language || search.trim());
   const clearFilters = () => { setCategory(""); setLanguage(""); setSearch(""); };
 
@@ -44,6 +46,11 @@ export default function PromptsLibraryPage() {
     try {
       if (!navigator.clipboard?.writeText) throw new Error("clipboard-unavailable");
       await copyPromptText(text, value => navigator.clipboard.writeText(value));
+      const sessionKey = `aitoolbox-prompt-copy-${id}`;
+      if (!sessionStorage.getItem(sessionKey)) {
+        sessionStorage.setItem(sessionKey, "1");
+        recordCopy.mutate({ id });
+      }
       setCopiedId(id);
       window.setTimeout(() => setCopiedId(current => current === id ? null : current), 1800);
     } catch {
@@ -100,7 +107,7 @@ export default function PromptsLibraryPage() {
         {isLoading ? <div className="grid gap-5 lg:grid-cols-2">{Array.from({ length: 4 }).map((_, index) => <div key={index} className="h-96 animate-pulse rounded-3xl bg-white/[0.045]" />)}</div> : error ? <div className="rounded-3xl border border-rose-400/20 bg-rose-400/5 p-10 text-center text-rose-100">تعذر تحميل مكتبة الـPrompts حالياً.</div> : prompts?.length ? <div className="grid gap-5 lg:grid-cols-2">{prompts.map(prompt => {
           const Icon = categoryIcons[prompt.category];
           const copied = copiedId === prompt.id;
-          return <article key={prompt.id} className="relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_12px_36px_rgba(0,0,0,.12)] transition hover:border-violet-300/40">
+          return <article key={prompt.id} data-prompt-id={prompt.id} className="relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-white/[0.035] p-6 shadow-[0_12px_36px_rgba(0,0,0,.12)] transition hover:border-violet-300/40">
             <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${prompt.colorTone === "cyan" ? "from-cyan-300 to-blue-600" : prompt.colorTone === "fuchsia" ? "from-fuchsia-400 to-violet-600" : prompt.colorTone === "rose" ? "from-rose-400 to-orange-400" : prompt.colorTone === "indigo" ? "from-indigo-300 to-cyan-500" : "from-violet-300 to-indigo-600"}`} />
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0"><div className="flex flex-wrap items-center gap-2"><span className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-[11px] font-bold text-slate-300"><Icon className="h-3.5 w-3.5 text-violet-200" />{categoryLabels[prompt.category]}</span><span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-[11px] font-bold text-emerald-100">مجاني</span><span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-bold text-slate-400">{prompt.language === "ar" ? "العربية" : "English"}</span></div><h2 dir={prompt.language === "en" ? "ltr" : "rtl"} className={`mt-4 font-display text-2xl font-black text-white ${prompt.language === "en" ? "text-left" : "text-right"}`}>{prompt.title}</h2></div>

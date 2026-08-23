@@ -32,6 +32,9 @@ try {
   if (allPrompts < 20) throw new Error(`Expected at least 20 free prompts, found ${allPrompts}.`);
   if (englishPrompts !== 10) throw new Error(`Expected 10 English prompts, found ${englishPrompts}.`);
 
+  const firstPrompt = page.locator("article").first();
+  const firstPromptId = await firstPrompt.getAttribute("data-prompt-id");
+  await page.evaluate(id => sessionStorage.setItem(`aitoolbox-prompt-copy-${id}`, "1"), firstPromptId);
   await page.getByRole("button", { name: "نسخ الـPrompt" }).first().click();
   await page.getByRole("button", { name: "تم النسخ" }).first().waitFor();
   await page.getByRole("status", { name: "تم نسخ الـPrompt إلى الحافظة" }).waitFor();

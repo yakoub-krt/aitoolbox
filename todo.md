@@ -86,3 +86,11 @@
 - [x] Review current prompt-library category and language controls and select a responsive search strategy.
 - [x] Add keyword search and coordinated category/language filters with an accessible clear action and useful empty state.
 - [x] Add coverage and desktop/mobile verification for combined prompt searching and filtering.
+- [x] Review the prompts data model and homepage composition to define a factual copy-count ranking.
+- [x] Add a database migration, server procedures, and safe copy-event tracking for prompt popularity.
+- [x] Build a responsive homepage section for the most-copied Prompts with direct copy and library links.
+- [x] Test copy counting, popularity ordering, empty state, and desktop/mobile presentation.
+- [x] Add an integration verification with non-zero prompt copy counts to confirm homepage ranking order and direct-copy behavior in the populated popular section.
+- [x] Verify the populated and empty «الأكثر شيوعاً» sections on desktop and mobile, then capture evidence before saving.
+- [x] Run a safe, reversible end-to-end verification using real non-zero copy counts, then restore all original prompt counts.
+- [x] Capture desktop and mobile evidence for the populated section using real popularity data before saving.

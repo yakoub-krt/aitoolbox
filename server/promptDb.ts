@@ -1,4 +1,4 @@
-import { and, asc, eq, like, or } from "drizzle-orm";
+import { and, asc, desc, eq, gt, like, or, sql } from "drizzle-orm";
 import { prompts } from "../drizzle/schema";
 import { getDb } from "./db";
 
@@ -46,6 +46,18 @@ export async function listPrompts(filters: PromptFilters = {}, includeAll = fals
   }
 
   return db.select().from(prompts).where(conditions.length ? and(...conditions) : undefined).orderBy(asc(prompts.sortOrder), asc(prompts.title));
+}
+
+export async function listPopularPrompts(limit = 3) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(prompts).where(and(eq(prompts.isPublished, true), eq(prompts.isFree, true), gt(prompts.copyCount, 0))).orderBy(desc(prompts.copyCount), asc(prompts.sortOrder), asc(prompts.title)).limit(limit);
+}
+
+export async function recordPromptCopy(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("قاعدة البيانات غير متاحة حالياً.");
+  await db.update(prompts).set({ copyCount: sql`${prompts.copyCount} + 1` }).where(and(eq(prompts.id, id), eq(prompts.isPublished, true), eq(prompts.isFree, true)));
 }
 
 export async function createPrompt(input: PromptWriteInput) {

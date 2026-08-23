@@ -3,6 +3,8 @@ import type { TrpcContext } from "./_core/context";
 
 const mocks = vi.hoisted(() => ({
   listPrompts: vi.fn(),
+  listPopularPrompts: vi.fn(),
+  recordPromptCopy: vi.fn(),
   createPrompt: vi.fn(),
   updatePrompt: vi.fn(),
   deletePrompt: vi.fn(),
@@ -32,6 +34,16 @@ describe("مكتبة Prompts", () => {
     const caller = promptsRouter.createCaller(publicContext);
     await expect(caller.list({ category: "writing", language: "ar", search: "مقال" })).resolves.toEqual([]);
     expect(mocks.listPrompts).toHaveBeenCalledWith({ category: "writing", language: "ar", search: "مقال" });
+  });
+
+  it("يعرض الأعلى نسخاً بالعدد المطلوب ويسجل النسخ للـPrompt المنشور", async () => {
+    mocks.listPopularPrompts.mockResolvedValue([]);
+    mocks.recordPromptCopy.mockResolvedValue(undefined);
+    const caller = promptsRouter.createCaller(publicContext);
+    await expect(caller.popular({ limit: 4 })).resolves.toEqual([]);
+    await expect(caller.recordCopy({ id: 2 })).resolves.toEqual({ success: true });
+    expect(mocks.listPopularPrompts).toHaveBeenCalledWith(4);
+    expect(mocks.recordPromptCopy).toHaveBeenCalledWith(2);
   });
 
   it("يمنع الزائر غير المسجل من إضافة Prompt", async () => {
