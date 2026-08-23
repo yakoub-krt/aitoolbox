@@ -102,3 +102,9 @@
 - [x] Redesign the hero, three visitor paths, trust section, popular content, and registration call to action with purposeful Arabic copy.
 - [x] Preserve live sections for tools, prompts, and articles while connecting every major CTA to an implemented destination.
 - [x] Add landing-page browser verification and desktop/mobile visual review before saving the update.
+- [x] Audit all seven learning-plan days for depth, timings, exercises, examples, and completion criteria.
+- [x] Expand every learning-plan day into a 30–45 minute practical lesson with staged actions, a reusable example, pitfalls, and a concrete deliverable.
+- [x] Update the learning-plan interface to present detailed day content clearly on desktop and mobile.
+- [x] Add coverage and browser verification proving all seven expanded days and their progress controls remain usable.
+- [x] Define and generate seven consistent, text-free educational visuals that support each learning day without increasing page clutter.
+- [x] Integrate the generated visuals through managed static asset URLs and verify their responsive display in the expanded lessons.
