@@ -138,7 +138,9 @@
 - [x] Move the complete AIToolBox project history and current snapshot to a new owner-specified GitHub repository after confirming write access.
 - [x] Verify write access to yakoub-krt/aitoolbox before adding it as the final GitHub destination.
 - [x] Issue and complete a fresh GitHub device authorization for yakoub-krt after the prior code expired.
-- [ ] Collect the owner’s permanent-domain status and approved Resend and AdSense configuration values before live activation.
+- [x] Collect the owner’s permanent-domain status and approved Resend and AdSense configuration values before live activation. (Owner confirmed no permanent domain is available yet.)
+- [ ] Resume Resend and AdSense activation after the owner obtains a permanent domain and provides the required account values.
+- [x] Research free email-delivery alternatives and document which options can be used safely for pre-domain testing.
 - [x] Run a fresh full-project diagnostics pass covering tests, TypeScript, build output, logs, public routes, and responsive layouts.
 - [x] Fix all reproducible internal defects found in the fresh diagnostics pass and document any remaining third-party prerequisites.
 - [x] Align the popular-Prompts browser verification with the current visible heading, factual empty state, and library link on the homepage.
