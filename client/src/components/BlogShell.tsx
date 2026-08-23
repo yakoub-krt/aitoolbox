@@ -13,6 +13,7 @@ const navItems = [
   { label: "المقارنات", path: "/sections/comparisons" },
   { label: "الإنتاجية", path: "/sections/productivity" },
   { label: "دليل الأدوات", path: "/tools" },
+  { label: "بدائل مجانية", path: "/free-alternatives" },
   { label: "Prompts", path: "/prompts" },
   { label: "المقارنة", path: "/compare" },
   { label: "الأفضل", path: "/best-ai-tools" },
@@ -102,7 +103,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
           </div>
           <div>
             <p className="mb-4 text-sm font-bold text-slate-200">المدونة</p>
-            <div className="flex flex-col gap-3 text-sm text-slate-400"><Link href="/">أحدث المقالات</Link><Link href="/sections/comparisons">المقارنات</Link><Link href="/admin">لوحة الإدارة</Link></div>
+            <div className="flex flex-col gap-3 text-sm text-slate-400"><Link href="/">أحدث المقالات</Link><Link href="/sections/comparisons">المقارنات</Link><Link href="/free-alternatives">بدائل مجانية</Link><Link href="/admin">لوحة الإدارة</Link></div>
           </div>
           <div>
             <p className="mb-4 text-sm font-bold text-slate-200">المعلومات</p>

@@ -2,7 +2,7 @@ import { chromium } from "playwright-core";
 
 const origin = "http://127.0.0.1:3000";
 const routes = [
-  "/", "/tools", "/prompts", "/prompt-customizer", "/learning-plan", "/student", "/student-directory", "/advisor", "/best-ai-tools", "/compare", "/search",
+  "/", "/tools", "/free-alternatives", "/prompts", "/prompt-customizer", "/learning-plan", "/student", "/student-directory", "/advisor", "/best-ai-tools", "/compare", "/search",
   "/about", "/contact", "/privacy", "/terms", "/affiliate-disclosure",
   "/sections/writing", "/sections/photos", "/sections/video", "/sections/comparisons", "/sections/productivity",
   "/articles/start-ai-project", "/articles/best-ai-tools-2026", "/articles/ai-writing-arabic", "/articles/chatgpt-gemini-claude-comparison", "/articles/ai-image-tools", "/articles/ai-pdf-summary-tools", "/articles/ai-tools-for-students", "/articles/ai-video-audio-tools", "/articles/ai-tools-for-freelancers", "/articles/ai-productivity-tools", "/articles/ai-privacy-guide",

@@ -8,13 +8,13 @@ try {
   await menuButton.click();
   const mobileNav = page.locator('nav[aria-label="التنقل على الهاتف"]');
   await mobileNav.waitFor();
-  if (await mobileNav.locator("a").count() !== 12) throw new Error("The mobile navigation does not expose all public routes.");
+  if (await mobileNav.locator("a").count() !== 13) throw new Error("The mobile navigation does not expose all public routes.");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 2);
   if (overflow) throw new Error("The mobile navigation causes horizontal page overflow.");
   await mobileNav.locator('a[href="/student-directory"]').click();
   await page.waitForURL("**/student-directory");
   if (await page.getByRole("heading", { name: /دليل الطلاب/ }).count() < 1) throw new Error("The mobile menu route did not open correctly.");
-  console.log(JSON.stringify({ menu: true, links: 12, overflow: false, routeNavigation: true }));
+  console.log(JSON.stringify({ menu: true, links: 13, overflow: false, routeNavigation: true }));
 } finally {
   await browser.close();
 }

@@ -53,10 +53,10 @@
 - [x] Expand the ten foundational articles into substantial Arabic guides with clear structure, practical examples, limitations, and reader actions.
 - [x] Add or strengthen contextual FAQs and tool-comparison tables where appropriate without fabricating claims.
 - [x] Verify long-form article rendering on desktop and mobile, content depth, and reading flow after database updates.
-- [ ] Design a practical seven-day Arabic AI learning path for beginners with clear daily outcomes and safe-use guidance.
-- [ ] Build an interactive learning-plan page with day completion tracking and a local saved-progress fallback.
-- [ ] Link each learning day to relevant AIToolBox articles or official tool pages and show the “By Yakoub Kartouche” credit.
-- [ ] Add learning-plan navigation from the homepage and verify desktop/mobile progress behavior.
+- [x] Design a practical seven-day Arabic AI learning path for beginners with clear daily outcomes and safe-use guidance.
+- [x] Build an interactive learning-plan page with day completion tracking and a local saved-progress fallback.
+- [x] Link each learning day to relevant AIToolBox articles or official tool pages and show the “By Yakoub Kartouche” credit.
+- [x] Add learning-plan navigation from the homepage and verify desktop/mobile progress behavior.
 - [x] Review the article Markdown rendering path and identify a reliable heading-to-anchor strategy for Arabic section titles.
 - [x] Add an accessible interactive table of contents at the beginning of every article, with smooth in-page navigation and an active-section state.
 - [x] Add unit coverage for table-of-contents heading extraction and anchor generation, then verify desktop and mobile article presentation.
@@ -115,8 +115,8 @@
 - [x] Expand every student-workspace tool into a feature-rich interactive workflow with editable inputs, useful generated outputs, and clear actions.
 - [x] Build a student tools directory organised by specialisation with trusted direct links and study-focused use cases.
 - [x] Add student-directory navigation, tests, and desktop/mobile verification.
-- [ ] Curate verified official links for useful sites and free alternatives, grouped by task with transparent free-tier notes.
-- [ ] Build a filterable sites-and-free-alternatives directory with navigation, tests, and desktop/mobile verification.
+- [x] Curate verified official links for useful sites and free alternatives, grouped by task with transparent free-tier notes.
+- [x] Build a filterable sites-and-free-alternatives directory with navigation, tests, and desktop/mobile verification.
 - [x] Create a visually engaging 8,000–10,000-character Arabic guide on starting a project with AI, including a managed educational image and internal resource links.
 - [x] Audit all principal public AIToolBox routes, links, interactions, responsive presentation, and runtime logs; fix reproducible defects and save a verified checkpoint.
 - [x] Improve mobile navigation discoverability so public route links remain easy to access without a crowded header.
@@ -128,3 +128,5 @@
 - [x] Guide the owner through GitHub App repository access if Manus does not expose a reconnect control, then re-check write permission.
 - [x] Test the locally registered GitHub account credential without the session token before requesting additional repository-write authorization.
 - [x] Issue and complete a fresh GitHub device authorization after the prior one-time code expired.
+- [x] Reconcile duplicated learning-plan tasks with the verified implementation before continuing the remaining directory work.
+- [ ] Document the exact owner-supplied details still required to activate live email delivery and advertising after internal work is complete.
