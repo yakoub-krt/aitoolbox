@@ -6,6 +6,7 @@ import { adminRouter } from "./routers/admin";
 import { blogRouter } from "./routers/blog";
 import { contactRouter } from "./routers/contact";
 import { newsletterRouter } from "./routers/newsletter";
+import { promptsRouter } from "./routers/prompts";
 import { toolsRouter } from "./routers/tools";
 import { engagementRouter } from "./routers/engagement";
 
@@ -23,6 +24,7 @@ export const appRouter = router({
   admin: adminRouter,
   contact: contactRouter,
   newsletter: newsletterRouter,
+  prompts: promptsRouter,
   tools: toolsRouter,
   engagement: engagementRouter,
 });

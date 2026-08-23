@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { HelpCircle, LayoutDashboard, Lightbulb, LogOut, Mail, PanelLeft, Users, Wrench } from "lucide-react";
+import { HelpCircle, LayoutDashboard, Lightbulb, LogOut, Mail, PanelLeft, Users, Wand2, Wrench } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
@@ -31,6 +31,7 @@ const menuItems = [
   { icon: LayoutDashboard, label: "إدارة المقالات", path: "/admin" },
   { icon: Mail, label: "المشتركون", path: "/admin/subscribers" },
   { icon: Wrench, label: "دليل الأدوات", path: "/admin/tools" },
+  { icon: Wand2, label: "مكتبة Prompts", path: "/admin/prompts" },
   { icon: HelpCircle, label: "الأسئلة الشائعة", path: "/admin/tool-faqs" },
   { icon: Lightbulb, label: "اقتراحات الزوار", path: "/admin/suggestions" },
   { icon: Users, label: "زيارة المدونة", path: "/" },

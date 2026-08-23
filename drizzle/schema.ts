@@ -160,6 +160,32 @@ export const savedItems = mysqlTable(
   }),
 );
 
+export const prompts = mysqlTable(
+  "prompts",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    title: varchar("title", { length: 180 }).notNull(),
+    slug: varchar("slug", { length: 180 }).notNull(),
+    category: mysqlEnum("category", ["image_to_video", "image_generation", "image_editing", "short_video", "marketing"]).notNull(),
+    language: mysqlEnum("language", ["ar", "en"]).notNull(),
+    useCase: varchar("useCase", { length: 180 }).notNull(),
+    description: text("description").notNull(),
+    promptText: text("promptText").notNull(),
+    toolHint: varchar("toolHint", { length: 180 }).notNull(),
+    isFree: boolean("isFree").notNull().default(true),
+    isPublished: boolean("isPublished").notNull().default(true),
+    colorTone: varchar("colorTone", { length: 32 }).notNull().default("violet"),
+    sortOrder: int("sortOrder").notNull().default(0),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => ({
+    slugUnique: uniqueIndex("prompts_slug_unique").on(table.slug),
+    publicIndex: index("prompts_public_idx").on(table.isPublished, table.isFree, table.sortOrder),
+    filterIndex: index("prompts_filter_idx").on(table.category, table.language),
+  }),
+);
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Section = typeof sections.$inferSelect;
@@ -168,3 +194,4 @@ export type Subscriber = typeof subscribers.$inferSelect;
 export type Tool = typeof tools.$inferSelect;
 export type ToolFaq = typeof toolFaqs.$inferSelect;
 export type VisitorSuggestion = typeof visitorSuggestions.$inferSelect;
+export type Prompt = typeof prompts.$inferSelect;

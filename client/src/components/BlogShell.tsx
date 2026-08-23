@@ -12,6 +12,7 @@ const navItems = [
   { label: "المقارنات", path: "/sections/comparisons" },
   { label: "الإنتاجية", path: "/sections/productivity" },
   { label: "دليل الأدوات", path: "/tools" },
+  { label: "Prompts", path: "/prompts" },
   { label: "المقارنة", path: "/compare" },
   { label: "الأفضل", path: "/best-ai-tools" },
   { label: "محفوظاتي", path: "/saved" },

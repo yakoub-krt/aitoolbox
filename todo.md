@@ -68,3 +68,8 @@
 - [x] Add a dynamic reading-progress bar at the top of article pages and verify its responsive scroll behavior with tests.
 - [x] Add component or browser-level coverage that verifies progress-bar updates during scrolling and return-button visibility.
 - [x] Verify the reading-progress bar and floating return button after scrolling through a long article on desktop and mobile, then capture evidence.
+- [x] Define a bilingual prompt-library data model with categories, use cases, language, free access status, and editable prompt text.
+- [x] Create the database migration, public listing/filtering procedures, and protected management procedures for the prompt library.
+- [x] Seed a curated free launch collection of Arabic and English prompts for image-to-video, product ads, image generation, image enhancement, and short-form content.
+- [x] Build a public Arabic RTL prompt-library page with bilingual filters, prompt cards, direct copying, and clear free-access messaging.
+- [x] Add prompt-library navigation, protected content management, tests, and desktop/mobile verification.
