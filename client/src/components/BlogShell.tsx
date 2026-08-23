@@ -3,15 +3,17 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Input } from "@/components/ui/input";
 import { discoveryNavigationItems, primaryNavigationItems, publicNavigationItems } from "@/lib/siteNavigation";
 import NewsletterForm from "@/components/NewsletterForm";
-import { BookOpen, ChevronDown, Menu, Search, Sparkles } from "lucide-react";
+import { BookOpen, ChevronDown, Menu, Moon, Search, Sparkles, Sun } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { FormEvent, useState } from "react";
 import { Link, useLocation } from "wouter";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function BlogShell({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
   const [searchValue, setSearchValue] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -61,7 +63,11 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
             </DropdownMenu>
           </nav>
 
-          <form onSubmit={submitSearch} className="hidden items-center gap-2 md:flex" role="search">
+          <div className="hidden items-center gap-2 md:flex">
+            <Button type="button" variant="outline" size="icon" onClick={toggleTheme} aria-label={theme === "dark" ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي"} title={theme === "dark" ? "الوضع النهاري" : "الوضع الليلي"} className="h-10 w-10 border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 hover:text-white">
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+            <form onSubmit={submitSearch} className="flex items-center gap-2" role="search">
             <div className="relative">
               <Search className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
               <Input
@@ -75,9 +81,13 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
             <Button type="submit" size="sm" className="bg-violet-500 text-white hover:bg-violet-400">
               بحث
             </Button>
-          </form>
+            </form>
+          </div>
 
           <div className="flex items-center gap-2 md:hidden">
+            <Button type="button" variant="outline" size="icon" onClick={toggleTheme} aria-label={theme === "dark" ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي"} title={theme === "dark" ? "الوضع النهاري" : "الوضع الليلي"} className="h-10 w-10 border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 hover:text-white">
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
             <Link href="/search" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-slate-300" aria-label="فتح البحث">
               <Search className="h-4 w-4" />
             </Link>
