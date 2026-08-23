@@ -15,6 +15,7 @@ const navItems = [
   { label: "المقارنة", path: "/compare" },
   { label: "الأفضل", path: "/best-ai-tools" },
   { label: "محفوظاتي", path: "/saved" },
+  { label: "اختيار الأداة", path: "/advisor" },
 ];
 
 export default function BlogShell({ children }: { children: React.ReactNode }) {

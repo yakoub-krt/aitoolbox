@@ -45,3 +45,7 @@
 - [x] Create a curated “Best AI Tools 2026” page using the existing factual tool directory data.
 - [x] Enhance the homepage with a featured-tools showcase, best-tools callout, and visitor suggestion call to action.
 - [x] Test favourites, suggestions, FAQs, best-tools content, and responsive homepage presentation.
+- [x] Define transparent recommendation rules for tool goal, budget, and Arabic-support preferences.
+- [x] Build an interactive Arabic tool-selection advisor using the existing tool directory data.
+- [x] Add clear recommendation reasoning, links to the directory and comparison flow, and owner credit “By Yakoub Kartouche”.
+- [x] Test advisor paths, recommendation output, mobile presentation, and routing from the homepage.
