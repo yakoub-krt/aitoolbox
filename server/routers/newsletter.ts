@@ -4,7 +4,7 @@ import { syncSubscriberToResend, unsubscribeRemoteContact } from "../resendServi
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 
 export const newsletterRouter = router({
-  subscribe: publicProcedure.input(z.object({ email: z.string().trim().email().max(320) })).mutation(async ({ input }) => {
+  subscribe: publicProcedure.input(z.object({ email: z.string().trim().email().max(320), consent: z.literal(true) })).mutation(async ({ input }) => {
     const subscription = await subscribeEmail(input.email);
     try {
       await syncSubscriberToResend(subscription.email);

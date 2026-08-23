@@ -159,4 +159,5 @@
 - [x] Add an attractive responsive Skeleton Loading state while the public tools directory fetches its data.
 - [x] Enhance the public About and Contact pages with transparent ownership, editorial, and communication information.
 - [x] Add route-aware Arabic SEO titles, descriptions, and topical keywords to public AIToolBox pages.
+- [x] Improve the public newsletter subscription form with clearer value, explicit consent, and accessible feedback while retaining safe email collection.
 - [x] Verify tool-comparison selections navigate using query parameters and render correctly on the Vercel comparison page; opening `/compare` without selections intentionally shows the guidance state.

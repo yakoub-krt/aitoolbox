@@ -26,7 +26,12 @@ const publicContext: TrpcContext = { user: null, req: {} as TrpcContext["req"], 
 describe("الاشتراك في نشرة AIToolBox", () => {
   it("يتحقق من صحة البريد الإلكتروني قبل إنشاء اشتراك", async () => {
     const caller = newsletterRouter.createCaller(publicContext);
-    await expect(caller.subscribe({ email: "ليس بريداً" })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    await expect(caller.subscribe({ email: "ليس بريداً", consent: true })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+  });
+
+  it("يتطلب موافقة صريحة قبل حفظ البريد", async () => {
+    const caller = newsletterRouter.createCaller(publicContext);
+    await expect(caller.subscribe({ email: "reader@example.com", consent: false })).rejects.toMatchObject({ code: "BAD_REQUEST" });
   });
 
   it("يعيد استجابة عامة لا تكشف حالة البريد المسجل سابقاً", async () => {
@@ -34,7 +39,7 @@ describe("الاشتراك في نشرة AIToolBox", () => {
     mocks.syncSubscriberToResend.mockResolvedValue(undefined);
     const caller = newsletterRouter.createCaller(publicContext);
 
-    await expect(caller.subscribe({ email: "reader@example.com" })).resolves.toEqual({ success: true });
+    await expect(caller.subscribe({ email: "reader@example.com", consent: true })).resolves.toEqual({ success: true });
     expect(mocks.subscribeEmail).toHaveBeenCalledWith("reader@example.com");
   });
 
