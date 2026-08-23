@@ -120,3 +120,5 @@
 - [x] Create a visually engaging 8,000–10,000-character Arabic guide on starting a project with AI, including a managed educational image and internal resource links.
 - [x] Audit all principal public AIToolBox routes, links, interactions, responsive presentation, and runtime logs; fix reproducible defects and save a verified checkpoint.
 - [x] Improve mobile navigation discoverability so public route links remain easy to access without a crowded header.
+- [x] Add an Arabic terms-of-use page and strengthen the privacy and ad/cookie disclosures with accessible footer navigation.
+- [x] Verify the legal pages, footer links, and responsive presentation before saving the compliance update.
