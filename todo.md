@@ -109,3 +109,5 @@
 - [x] Define and generate seven consistent, text-free educational visuals that support each learning day without increasing page clutter.
 - [x] Integrate the generated visuals through managed static asset URLs and verify their responsive display in the expanded lessons.
 - [x] Fix the learning-plan image loading issue reported for days 3–7, verify all seven images render, and save a corrective checkpoint.
+- [x] Design and build an attractive RTL student workspace with study-plan, review-question, concept-explainer, and flashcard tools.
+- [x] Add responsible-use guidance, navigation links, tests, and desktop/mobile verification for the student workspace.

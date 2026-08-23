@@ -17,6 +17,7 @@ const navItems = [
   { label: "الأفضل", path: "/best-ai-tools" },
   { label: "محفوظاتي", path: "/saved" },
   { label: "اختيار الأداة", path: "/advisor" },
+  { label: "للطلاب", path: "/student" },
 ];
 
 export default function BlogShell({ children }: { children: React.ReactNode }) {
