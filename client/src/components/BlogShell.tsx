@@ -1,26 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { discoveryNavigationItems, primaryNavigationItems, publicNavigationItems } from "@/lib/siteNavigation";
 import NewsletterForm from "@/components/NewsletterForm";
-import { BookOpen, Menu, Search, Sparkles } from "lucide-react";
+import { BookOpen, ChevronDown, Menu, Search, Sparkles } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { FormEvent, useState } from "react";
 import { Link, useLocation } from "wouter";
-
-const navItems = [
-  { label: "الكتابة", path: "/sections/writing" },
-  { label: "الصور", path: "/sections/photos" },
-  { label: "الفيديو", path: "/sections/video" },
-  { label: "المقارنات", path: "/sections/comparisons" },
-  { label: "الإنتاجية", path: "/sections/productivity" },
-  { label: "دليل الأدوات", path: "/tools" },
-  { label: "بدائل مجانية", path: "/free-alternatives" },
-  { label: "Prompts", path: "/prompts" },
-  { label: "المقارنة", path: "/compare" },
-  { label: "الأفضل", path: "/best-ai-tools" },
-  { label: "محفوظاتي", path: "/saved" },
-  { label: "اختيار الأداة", path: "/advisor" },
-  { label: "للطلاب", path: "/student-directory" },
-];
 
 export default function BlogShell({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
@@ -36,7 +22,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#060816] text-slate-100" dir="rtl">
       <header className="sticky top-0 z-40 border-b border-white/8 bg-[#080b1c]/90 backdrop-blur-xl">
-        <div className="container flex h-20 items-center justify-between gap-6">
+        <div className="container flex h-20 items-center justify-between gap-3 xl:gap-5">
           <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label="العودة إلى الصفحة الرئيسية">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_28px_rgba(139,92,246,.35)] transition-transform duration-200 group-hover:-rotate-6 sm:h-10 sm:w-10 sm:rounded-2xl">
               <Sparkles className="h-5 w-5 text-white" />
@@ -47,16 +33,32 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-5 lg:flex" aria-label="التنقل الرئيسي">
-            {navItems.map(item => (
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="التنقل الرئيسي">
+            {primaryNavigationItems.map(item => (
               <Link
                 key={item.path}
                 href={item.path}
-                className={`text-sm transition-colors hover:text-white ${location === item.path ? "text-violet-300" : "text-slate-400"}`}
+                className={`whitespace-nowrap text-xs font-semibold transition-colors hover:text-white xl:text-sm ${location === item.path ? "text-violet-300" : "text-slate-400"}`}
               >
                 {item.label}
               </Link>
             ))}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button type="button" variant="ghost" size="sm" className="h-9 gap-1.5 whitespace-nowrap px-2 text-xs font-semibold text-slate-300 hover:bg-white/[0.06] hover:text-white xl:px-3 xl:text-sm" aria-label="فتح قائمة الاستكشاف">
+                  استكشف <ChevronDown className="h-3.5 w-3.5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" style={{ direction: "rtl" }} className="w-64 border-white/10 bg-[#0b1025] p-2 text-slate-100 shadow-[0_18px_50px_rgba(0,0,0,.42)]">
+                <DropdownMenuLabel className="px-3 py-2 text-right text-xs font-black tracking-wide text-violet-200">محتوى ومسارات إضافية</DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-white/10" />
+                {discoveryNavigationItems.map(item => (
+                  <DropdownMenuItem key={item.path} asChild className={`my-1 cursor-pointer justify-end rounded-xl px-3 py-2.5 text-right text-sm font-semibold ${location === item.path ? "bg-violet-400/15 text-violet-100" : "text-slate-300 focus:bg-cyan-300/10 focus:text-white"}`}>
+                    <Link href={item.path}>{item.label}</Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           <form onSubmit={submitSearch} className="hidden items-center gap-2 md:flex" role="search">
@@ -65,7 +67,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
               <Input
                 value={searchValue}
                 onChange={event => setSearchValue(event.target.value)}
-                className="h-10 w-52 border-white/10 bg-white/5 pr-9 text-sm text-white placeholder:text-slate-500 focus-visible:ring-violet-400"
+                className="h-10 w-40 border-white/10 bg-white/5 pr-9 text-sm text-white placeholder:text-slate-500 focus-visible:ring-violet-400 xl:w-52"
                 placeholder="ابحث عن أداة أو مقارنة"
                 aria-label="البحث في المقالات"
               />
@@ -84,7 +86,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
               <SheetContent side="right" className="w-[86vw] max-w-sm border-white/10 bg-[#080b1c] text-slate-100" dir="rtl">
                 <SheetHeader className="border-b border-white/8 pb-5 text-right"><SheetTitle className="font-display text-xl text-white">استكشف AIToolBox</SheetTitle><p className="text-sm leading-6 text-slate-400">اختر المسار الذي يناسب مهمتك الآن.</p></SheetHeader>
                 <nav className="mt-5 grid gap-2" aria-label="التنقل على الهاتف">
-                  {navItems.map(item => <Link key={item.path} href={item.path} onClick={() => setMobileMenuOpen(false)} className={`rounded-xl border px-4 py-3 text-sm font-semibold transition ${location === item.path ? "border-violet-300/40 bg-violet-400/15 text-violet-100" : "border-white/8 bg-white/[0.035] text-slate-300 hover:border-cyan-300/30 hover:bg-cyan-300/[0.06] hover:text-white"}`}>{item.label}</Link>)}
+                  {publicNavigationItems.map(item => <Link key={item.path} href={item.path} onClick={() => setMobileMenuOpen(false)} className={`rounded-xl border px-4 py-3 text-sm font-semibold transition ${location === item.path ? "border-violet-300/40 bg-violet-400/15 text-violet-100" : "border-white/8 bg-white/[0.035] text-slate-300 hover:border-cyan-300/30 hover:bg-cyan-300/[0.06] hover:text-white"}`}>{item.label}</Link>)}
                 </nav>
               </SheetContent>
             </Sheet>

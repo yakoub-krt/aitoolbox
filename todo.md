@@ -138,3 +138,8 @@
 - [x] Move the complete AIToolBox project history and current snapshot to a new owner-specified GitHub repository after confirming write access.
 - [x] Verify write access to yakoub-krt/aitoolbox before adding it as the final GitHub destination.
 - [x] Issue and complete a fresh GitHub device authorization for yakoub-krt after the prior code expired.
+- [ ] Collect the owner’s permanent-domain status and approved Resend and AdSense configuration values before live activation.
+- [x] Run a fresh full-project diagnostics pass covering tests, TypeScript, build output, logs, public routes, and responsive layouts.
+- [x] Fix all reproducible internal defects found in the fresh diagnostics pass and document any remaining third-party prerequisites.
+- [x] Align the popular-Prompts browser verification with the current visible heading, factual empty state, and library link on the homepage.
+- [x] Streamline the crowded desktop header into a clearer primary navigation and an accessible secondary discovery menu.
