@@ -96,7 +96,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
             <div className="flex flex-col gap-3 text-sm text-slate-400"><Link href="/about">من نحن</Link><Link href="/contact">تواصل معنا</Link><Link href="/privacy">سياسة الخصوصية</Link><Link href="/affiliate-disclosure">إفصاح الروابط التابعة</Link></div>
           </div>
         </div>
-        <div className="container border-t border-white/5 py-5 text-center text-xs text-slate-500">© {new Date().getFullYear()} AIToolBox. محتوى تقني عربي مستقل.</div>
+        <div className="container flex flex-col items-center justify-between gap-2 border-t border-white/5 py-5 text-center text-xs text-slate-500 sm:flex-row"><span>© {new Date().getFullYear()} AIToolBox. محتوى تقني عربي مستقل.</span><span className="font-medium text-violet-200/80" dir="ltr">By Yakoub Kartouche</span></div>
       </footer>
     </div>
   );

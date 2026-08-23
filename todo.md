@@ -36,3 +36,5 @@
 - [x] Load the AdSense script only when a publisher ID is configured and avoid rendering empty ad placeholders otherwise.
 - [ ] Request the Google AdSense publisher ID and validate responsive ad integration before live activation.
 - [ ] Activate Google AdSense only after the owner provides a publisher ID, valid ad slots, and a permanent verified domain.
+- [ ] Link a permanent user-owned domain to AIToolBox before activating live Resend delivery or Google AdSense.
+- [x] Add the owner credit “By Yakoub Kartouche” to the site footer with accessible, responsive styling.
