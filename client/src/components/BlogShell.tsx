@@ -22,7 +22,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#060816] text-slate-100" dir="rtl">
       <header className="sticky top-0 z-40 border-b border-white/8 bg-[#080b1c]/90 backdrop-blur-xl">
-        <div className="container flex h-20 items-center justify-between gap-3 xl:gap-5">
+        <div className="container flex h-[4.5rem] items-center justify-between gap-3 xl:gap-4">
           <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label="العودة إلى الصفحة الرئيسية">
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_28px_rgba(139,92,246,.35)] transition-transform duration-200 group-hover:-rotate-6 sm:h-10 sm:w-10 sm:rounded-2xl">
               <Sparkles className="h-5 w-5 text-white" />
@@ -33,7 +33,7 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
 
-          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-3 lg:flex xl:gap-4" aria-label="التنقل الرئيسي">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-2 lg:flex xl:gap-3" aria-label="التنقل الرئيسي">
             {primaryNavigationItems.map(item => (
               <Link
                 key={item.path}
@@ -96,8 +96,8 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
 
       <main>{children}</main>
 
-      <footer className="mt-20 border-t border-white/8 bg-[#050711]">
-        <div className="container grid gap-10 py-12 md:grid-cols-[1.3fr_.7fr_.7fr]">
+      <footer className="mt-16 border-t border-white/8 bg-[#050711]">
+        <div className="container grid gap-8 py-10 md:grid-cols-[1.3fr_.7fr_.7fr]">
           <div>
             <div className="mb-4 flex items-center gap-2 text-white"><BookOpen className="h-5 w-5 text-violet-300" /><strong className="font-display">AIToolBox</strong></div>
             <p className="max-w-md text-sm leading-7 text-slate-400">مدونة عربية عملية تساعدك على اختيار أدوات الذكاء الاصطناعي، تجربتها، وتوظيفها في الدراسة والعمل والإبداع.</p>

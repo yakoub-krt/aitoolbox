@@ -152,3 +152,6 @@
 - [x] Fix all reproducible internal defects found in the fresh diagnostics pass and document any remaining third-party prerequisites.
 - [x] Align the popular-Prompts browser verification with the current visible heading, factual empty state, and library link on the homepage.
 - [x] Streamline the crowded desktop header into a clearer primary navigation and an accessible secondary discovery menu.
+- [ ] Test the updated Vercel public site across core routes, responsive presentation, and visitor-facing interactions; document and fix reproducible faults.
+- [x] Add clearer responsive side padding and simplify visual density across the public AIToolBox layout.
+- [x] Verify tool-comparison selections navigate using query parameters and render correctly on the Vercel comparison page; opening `/compare` without selections intentionally shows the guidance state.
