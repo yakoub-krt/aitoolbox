@@ -157,4 +157,6 @@
 - [x] Add subtle reduced-motion-safe hover interactions to public tool cards.
 - [x] Add an accessible persistent light/dark theme switch for the public site.
 - [x] Add an attractive responsive Skeleton Loading state while the public tools directory fetches its data.
+- [x] Enhance the public About and Contact pages with transparent ownership, editorial, and communication information.
+- [x] Add route-aware Arabic SEO titles, descriptions, and topical keywords to public AIToolBox pages.
 - [x] Verify tool-comparison selections navigate using query parameters and render correctly on the Vercel comparison page; opening `/compare` without selections intentionally shows the guidance state.
