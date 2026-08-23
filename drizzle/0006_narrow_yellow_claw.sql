@@ -1,0 +1,1 @@
+ALTER TABLE `prompts` MODIFY COLUMN `category` enum('image_to_video','image_generation','image_editing','short_video','marketing','writing') NOT NULL;

@@ -11,7 +11,7 @@ type PromptForm = {
   id?: number;
   title: string;
   slug: string;
-  category: "image_to_video" | "image_generation" | "image_editing" | "short_video" | "marketing";
+  category: "image_to_video" | "image_generation" | "image_editing" | "short_video" | "marketing" | "writing";
   language: "ar" | "en";
   useCase: string;
   description: string;
@@ -24,7 +24,7 @@ type PromptForm = {
 };
 
 const blank: PromptForm = { title: "", slug: "", category: "image_to_video", language: "ar", useCase: "", description: "", promptText: "", toolHint: "", isFree: true, isPublished: true, colorTone: "violet", sortOrder: 100 };
-const categories = { image_to_video: "صورة إلى فيديو", image_generation: "توليد الصور", image_editing: "تعديل الصور", short_video: "فيديو قصير", marketing: "إعلانات ومنتجات" };
+const categories = { image_to_video: "صورة إلى فيديو", image_generation: "توليد الصور", image_editing: "تعديل الصور", short_video: "فيديو قصير", marketing: "إعلانات ومنتجات", writing: "كتابة ومقالات" };
 
 function Content() {
   const { user, loading } = useAuth();

@@ -78,3 +78,8 @@
 - [x] Build a public customizer page with free generation, direct copying, and helpful guidance for replacing template fields.
 - [x] Add respectful account-signup calls to action explaining future saving of favourites and custom prompts without blocking free use.
 - [x] Add tests and desktop/mobile verification for prompt customization, copying, and account-callout presentation.
+- [x] Review the prompt-copy flow and define an accessible visual confirmation that respects reduced-motion preferences.
+- [x] Add bilingual customizer templates for article writing and social-media posts with practical editable fields.
+- [x] Add a short visual copy-success effect to the customizer output without blocking further use.
+- [x] Test the expanded template set, copy feedback, and desktop/mobile presentation before saving the update.
+- [x] Expand the free prompt-library launch collection to 20 curated Arabic and English prompts with varied practical use cases.

@@ -1,4 +1,5 @@
 import BlogShell from "@/components/BlogShell";
+import CopySuccessToast from "@/components/CopySuccessToast";
 import { Button } from "@/components/ui/button";
 import { copyPromptText } from "@/lib/promptCopy";
 import { trpc } from "@/lib/trpc";
@@ -12,6 +13,7 @@ const categoryLabels = {
   image_editing: "تعديل الصور",
   short_video: "فيديو قصير",
   marketing: "إعلانات ومنتجات",
+  writing: "كتابة ومقالات",
 };
 
 const categoryIcons = {
@@ -20,6 +22,7 @@ const categoryIcons = {
   image_editing: Image,
   short_video: Sparkles,
   marketing: Megaphone,
+  writing: Wand2,
 };
 
 type Category = keyof typeof categoryLabels;
@@ -100,6 +103,6 @@ export default function PromptsLibraryPage() {
           </article>;
         })}</div> : <div className="rounded-3xl border border-dashed border-white/15 p-14 text-center"><Sparkles className="mx-auto h-8 w-8 text-violet-300" /><h2 className="mt-4 font-display text-xl font-bold text-white">لا توجد Prompts مطابقة</h2><button onClick={() => { setCategory(""); setLanguage(""); }} className="mt-3 text-sm text-violet-200">إعادة ضبط الفلاتر</button></div>}
       </div>
-    </section>
+    </section><CopySuccessToast visible={copiedId !== null} />
   </BlogShell>;
 }

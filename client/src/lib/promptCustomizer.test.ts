@@ -21,4 +21,13 @@ describe("prompt customizer", () => {
     expect(output).toContain("friendly");
     expect(output).toContain("Save this video");
   });
+
+  it("ينشئ قالب مقال ومنشور اجتماعي بالقيم المناسبة", () => {
+    const article = buildCustomPrompt("article", "ar", { ...defaultCustomizerValues, topic: "استخدام الذكاء الاصطناعي في العمل", contentLength: "1000" });
+    const post = buildCustomPrompt("social_post", "en", { ...defaultCustomizerValues, platform: "LinkedIn", topic: "AI productivity" });
+    expect(article).toContain("1000 كلمة");
+    expect(article).toContain("5 عناوين H2");
+    expect(post).toContain("LinkedIn post");
+    expect(post).toContain("AI productivity");
+  });
 });

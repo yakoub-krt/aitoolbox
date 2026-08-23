@@ -2,7 +2,7 @@ import { and, asc, eq } from "drizzle-orm";
 import { prompts } from "../drizzle/schema";
 import { getDb } from "./db";
 
-export const promptCategories = ["image_to_video", "image_generation", "image_editing", "short_video", "marketing"] as const;
+export const promptCategories = ["image_to_video", "image_generation", "image_editing", "short_video", "marketing", "writing"] as const;
 export const promptLanguages = ["ar", "en"] as const;
 export type PromptCategory = (typeof promptCategories)[number];
 export type PromptLanguage = (typeof promptLanguages)[number];

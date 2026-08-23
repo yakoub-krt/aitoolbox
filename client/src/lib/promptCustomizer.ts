@@ -1,4 +1,4 @@
-export type CustomizerTemplate = "product_video" | "product_ad" | "educational_reel";
+export type CustomizerTemplate = "product_video" | "product_ad" | "educational_reel" | "article" | "social_post";
 export type CustomizerLanguage = "ar" | "en";
 
 export type PromptCustomizerValues = {
@@ -11,12 +11,17 @@ export type PromptCustomizerValues = {
   topic: string;
   tone: string;
   callToAction: string;
+  audience: string;
+  platform: string;
+  contentLength: string;
 };
 
 export const customizerTemplates: Record<CustomizerTemplate, { label: string; description: string }> = {
   product_video: { label: "صورة منتج إلى فيديو", description: "فيديو إعلاني قصير من صورة منتج" },
   product_ad: { label: "صورة إعلان لمنتج", description: "فكرة صورة تجارية مع مساحة للنص" },
   educational_reel: { label: "سيناريو Reel تعليمي", description: "فيديو قصير بخطاف ونقاط ومشاهد" },
+  article: { label: "مقال متكامل", description: "مقال منظم بعناوين وأمثلة وخلاصة" },
+  social_post: { label: "منشور تواصل اجتماعي", description: "منشور قصير قابل للحفظ والمشاركة" },
 };
 
 export const defaultCustomizerValues: PromptCustomizerValues = {
@@ -29,6 +34,9 @@ export const defaultCustomizerValues: PromptCustomizerValues = {
   topic: "كيف تختار أداة ذكاء اصطناعي مناسبة",
   tone: "ودودة وخبيرة",
   callToAction: "احفظ الفيديو وجرّب الأداة",
+  audience: "مبتدئون مهتمون بالذكاء الاصطناعي",
+  platform: "Instagram",
+  contentLength: "800",
 };
 
 export function buildCustomPrompt(template: CustomizerTemplate, language: CustomizerLanguage, values: PromptCustomizerValues) {
@@ -44,7 +52,15 @@ export function buildCustomPrompt(template: CustomizerTemplate, language: Custom
       : `Create a premium commercial image for ${values.product}. Place the product in the center with dramatic luxury lighting and a ${values.background}. Use highly realistic detail, cinematic depth of field, and accurate reflections. Leave clean negative space on the ${values.placement} for a title later. Use ${values.format}. Do not generate any text or logo not present on the product.`;
   }
 
-  return language === "ar"
+  if (template === "educational_reel") return language === "ar"
     ? `اكتب سيناريو فيديو Reel عربي مدته ${values.duration} ثانية عن: ${values.topic}. ابدأ بخطاف قوي في أول ثانيتين، ثم قدّم 3 نقاط عملية بجمل قصيرة. أضف اقتراحاً للمشهد البصري أو B-roll لكل نقطة. اجعل النبرة ${values.tone}. اختم بهذه الدعوة: ${values.callToAction}. أعطني الناتج في جدول: الوقت، النص المنطوق، النص الظاهر، المشهد المقترح.`
     : `Write a ${values.duration}-second educational Reel script about: ${values.topic}. Start with a strong hook in the first two seconds, then explain three practical points in short sentences. Add a visual or B-roll suggestion for each point. Use a ${values.tone} tone. End with this call to action: ${values.callToAction}. Format the response as a table with timing, voiceover, on-screen copy, and suggested visual.`;
+
+  if (template === "article") return language === "ar"
+    ? `اكتب مقالاً عربياً عملياً من نحو ${values.contentLength} كلمة عن: ${values.topic}. اكتب للقارئ: ${values.audience}. استخدم نبرة ${values.tone}. ابدأ بمقدمة قصيرة، ثم قدّم 5 عناوين H2 منطقية، وأضف نقاطاً أو أمثلة عملية تحت كل عنوان. أدرج فقرة عن خطأ شائع وخلاصة مختصرة تنتهي بهذه الدعوة: ${values.callToAction}. استخدم عربية فصحى بسيطة ولا تذكر حقائق غير مؤكدة.`
+    : `Write a practical ${values.contentLength}-word article about: ${values.topic} for ${values.audience}. Use a ${values.tone} tone. Start with a short introduction, then provide five logical H2 sections with practical points or examples under each one. Include a common mistake to avoid and a concise conclusion ending with this call to action: ${values.callToAction}. Use plain language and do not invent unverified facts.`;
+
+  return language === "ar"
+    ? `اكتب منشوراً لمنصة ${values.platform} عن: ${values.topic}. اكتب للجمهور: ${values.audience}. استخدم نبرة ${values.tone}. ابدأ بخطاف قصير، ثم اشرح الفكرة في 4 فقرات سهلة القراءة على الهاتف، وأضف مثالاً عملياً واحداً. اختم بهذه الدعوة: ${values.callToAction}. اقترح 5 هاشتاغات مرتبطة فعلاً بالموضوع وتجنب الوعود المبالغ فيها.`
+    : `Write a ${values.platform} post about: ${values.topic} for ${values.audience}. Use a ${values.tone} tone. Open with a short hook, then explain the idea in four phone-friendly paragraphs and include one practical example. End with this call to action: ${values.callToAction}. Suggest five relevant hashtags and avoid exaggerated promises.`;
 }

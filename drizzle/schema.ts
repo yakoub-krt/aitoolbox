@@ -166,7 +166,7 @@ export const prompts = mysqlTable(
     id: int("id").autoincrement().primaryKey(),
     title: varchar("title", { length: 180 }).notNull(),
     slug: varchar("slug", { length: 180 }).notNull(),
-    category: mysqlEnum("category", ["image_to_video", "image_generation", "image_editing", "short_video", "marketing"]).notNull(),
+    category: mysqlEnum("category", ["image_to_video", "image_generation", "image_editing", "short_video", "marketing", "writing"]).notNull(),
     language: mysqlEnum("language", ["ar", "en"]).notNull(),
     useCase: varchar("useCase", { length: 180 }).notNull(),
     description: text("description").notNull(),
