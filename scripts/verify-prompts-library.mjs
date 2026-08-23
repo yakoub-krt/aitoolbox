@@ -10,6 +10,22 @@ try {
   await page.waitForSelector("article");
 
   const allPrompts = await page.locator("article").count();
+  const searchBox = page.getByRole("textbox", { name: "البحث في مكتبة Prompts" });
+  await searchBox.fill("مخطط مقال");
+  await page.waitForFunction(() => document.querySelectorAll("article").length === 1);
+  const searchResults = await page.locator("article").count();
+  if (searchResults !== 1) throw new Error(`Expected one Arabic article-outline result, found ${searchResults}.`);
+  await page.getByRole("button", { name: "مسح البحث", exact: true }).click();
+  await page.waitForFunction(() => document.querySelectorAll("article").length === 20);
+
+  await page.getByRole("button", { name: "كتابة ومقالات" }).click();
+  await page.waitForFunction(() => document.querySelectorAll("article").length === 4);
+  await page.getByRole("button", { name: "العربية" }).click();
+  await page.waitForFunction(() => document.querySelectorAll("article").length === 2);
+  const writingArabicPrompts = await page.locator("article").count();
+  await page.getByRole("button", { name: "مسح البحث والفلاتر" }).click();
+  await page.waitForFunction(() => document.querySelectorAll("article").length === 20);
+
   await page.getByRole("button", { name: "English" }).click();
   await page.waitForFunction(() => document.querySelectorAll("article").length === 10);
   const englishPrompts = await page.locator("article").count();
@@ -23,7 +39,7 @@ try {
   if (!clipboardText.includes("Transform")) throw new Error("Copied prompt text was not written to the clipboard.");
 
   await page.screenshot({ path: "/home/ubuntu/prompts-library-browser-check.png" });
-  console.log(JSON.stringify({ allPrompts, englishPrompts, clipboardLength: clipboardText.length }));
+  console.log(JSON.stringify({ allPrompts, searchResults, writingArabicPrompts, englishPrompts, clipboardLength: clipboardText.length }));
   await context.close();
 } finally {
   await browser.close();

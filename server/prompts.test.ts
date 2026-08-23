@@ -10,7 +10,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("./promptDb", () => ({
   ...mocks,
-  promptCategories: ["image_to_video", "image_generation", "image_editing", "short_video", "marketing"],
+  promptCategories: ["image_to_video", "image_generation", "image_editing", "short_video", "marketing", "writing"],
   promptLanguages: ["ar", "en"],
 }));
 import { promptsRouter } from "./routers/prompts";
@@ -25,6 +25,13 @@ describe("مكتبة Prompts", () => {
     const caller = promptsRouter.createCaller(publicContext);
     await expect(caller.list({ category: "image_to_video", language: "en" })).resolves.toEqual([]);
     expect(mocks.listPrompts).toHaveBeenCalledWith({ category: "image_to_video", language: "en" });
+  });
+
+  it("يمرر كلمة البحث إلى القائمة العامة مع الفلاتر", async () => {
+    mocks.listPrompts.mockResolvedValue([]);
+    const caller = promptsRouter.createCaller(publicContext);
+    await expect(caller.list({ category: "writing", language: "ar", search: "مقال" })).resolves.toEqual([]);
+    expect(mocks.listPrompts).toHaveBeenCalledWith({ category: "writing", language: "ar", search: "مقال" });
   });
 
   it("يمنع الزائر غير المسجل من إضافة Prompt", async () => {

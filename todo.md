@@ -83,3 +83,6 @@
 - [x] Add a short visual copy-success effect to the customizer output without blocking further use.
 - [x] Test the expanded template set, copy feedback, and desktop/mobile presentation before saving the update.
 - [x] Expand the free prompt-library launch collection to 20 curated Arabic and English prompts with varied practical use cases.
+- [x] Review current prompt-library category and language controls and select a responsive search strategy.
+- [x] Add keyword search and coordinated category/language filters with an accessible clear action and useful empty state.
+- [x] Add coverage and desktop/mobile verification for combined prompt searching and filtering.

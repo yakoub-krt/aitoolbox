@@ -1,10 +1,11 @@
 import BlogShell from "@/components/BlogShell";
 import CopySuccessToast from "@/components/CopySuccessToast";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { copyPromptText } from "@/lib/promptCopy";
 import { trpc } from "@/lib/trpc";
-import { Check, Clapperboard, Copy, Image, Megaphone, Sparkles, Wand2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Check, Clapperboard, Copy, Image, Megaphone, Search, Sparkles, Wand2, X } from "lucide-react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { Link } from "wouter";
 
 const categoryLabels = {
@@ -31,9 +32,13 @@ type Language = "ar" | "en";
 export default function PromptsLibraryPage() {
   const [category, setCategory] = useState<"" | Category>("");
   const [language, setLanguage] = useState<"" | Language>("");
+  const [search, setSearch] = useState("");
   const [copiedId, setCopiedId] = useState<number | null>(null);
-  const queryInput = useMemo(() => ({ category: category || undefined, language: language || undefined }), [category, language]);
+  const deferredSearch = useDeferredValue(search.trim());
+  const queryInput = useMemo(() => ({ category: category || undefined, language: language || undefined, search: deferredSearch || undefined }), [category, language, deferredSearch]);
   const { data: prompts, isLoading, error } = trpc.prompts.list.useQuery(queryInput);
+  const hasFilters = Boolean(category || language || search.trim());
+  const clearFilters = () => { setCategory(""); setLanguage(""); setSearch(""); };
 
   async function copyPrompt(id: number, text: string) {
     try {
@@ -69,6 +74,11 @@ export default function PromptsLibraryPage() {
 
     <section className="container py-9">
       <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-4">
+        <div className="relative mb-4">
+          <Search aria-hidden="true" className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-violet-200" />
+          <Input value={search} onChange={event => setSearch(event.target.value)} className="h-12 border-white/10 bg-[#090d20] pr-11 text-white placeholder:text-slate-500" placeholder="ابحث باسم الـPrompt أو الاستخدام أو كلمة داخل النص…" aria-label="البحث في مكتبة Prompts" />
+          {search && <button onClick={() => setSearch("")} className="absolute left-3 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white" aria-label="مسح البحث"><X className="h-4 w-4" /></button>}
+        </div>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap gap-2" aria-label="تصفية المجال">
             <button onClick={() => setCategory("")} className={`rounded-full px-3.5 py-2 text-sm font-bold transition ${category === "" ? "bg-violet-500 text-white" : "bg-white/5 text-slate-300 hover:bg-white/10"}`}>كل المهام</button>
@@ -83,7 +93,7 @@ export default function PromptsLibraryPage() {
             <button onClick={() => setLanguage("en")} className={`rounded-xl px-3 py-2 text-xs font-bold transition ${language === "en" ? "bg-white/10 text-white" : "text-slate-400 hover:text-white"}`}>English</button>
           </div>
         </div>
-        <p className="mt-4 text-xs text-slate-500">{prompts?.length ?? 0} Prompts مجانية متاحة الآن</p>
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2"><p className="text-xs text-slate-500">{isLoading ? "جارٍ تحديث النتائج…" : `${prompts?.length ?? 0} Prompts مجانية متاحة الآن`}</p>{hasFilters && <button onClick={clearFilters} className="inline-flex items-center gap-1 text-xs font-bold text-violet-200 transition hover:text-white"><X className="h-3.5 w-3.5" />مسح البحث والفلاتر</button>}</div>
       </div>
 
       <div className="mt-8">
@@ -101,7 +111,7 @@ export default function PromptsLibraryPage() {
             <pre dir={prompt.language === "en" ? "ltr" : "rtl"} className={`mt-5 max-h-56 overflow-y-auto whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#080b1b] p-4 font-sans text-sm leading-7 text-slate-200 ${prompt.language === "en" ? "text-left" : "text-right"}`}>{prompt.promptText}</pre>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><p className="text-xs leading-6 text-slate-500">{prompt.toolHint}</p><Button onClick={() => copyPrompt(prompt.id, prompt.promptText)} className={`shrink-0 ${copied ? "bg-emerald-500 hover:bg-emerald-500" : "bg-violet-500 hover:bg-violet-400"}`}>{copied ? <><Check className="ml-2 h-4 w-4" />تم النسخ</> : <><Copy className="ml-2 h-4 w-4" />نسخ الـPrompt</>}</Button></div>
           </article>;
-        })}</div> : <div className="rounded-3xl border border-dashed border-white/15 p-14 text-center"><Sparkles className="mx-auto h-8 w-8 text-violet-300" /><h2 className="mt-4 font-display text-xl font-bold text-white">لا توجد Prompts مطابقة</h2><button onClick={() => { setCategory(""); setLanguage(""); }} className="mt-3 text-sm text-violet-200">إعادة ضبط الفلاتر</button></div>}
+        })}</div> : <div className="rounded-3xl border border-dashed border-white/15 p-14 text-center"><Search className="mx-auto h-8 w-8 text-violet-300" /><h2 className="mt-4 font-display text-xl font-bold text-white">لا توجد Prompts مطابقة</h2><p className="mt-2 text-sm text-slate-400">جرّب كلمة أخرى، أو امسح الفلاتر لرؤية كامل المكتبة.</p><button onClick={clearFilters} className="mt-4 text-sm font-bold text-violet-200">إعادة ضبط الفلاتر</button></div>}
       </div>
     </section><CopySuccessToast visible={copiedId !== null} />
   </BlogShell>;

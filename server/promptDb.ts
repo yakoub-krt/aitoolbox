@@ -1,4 +1,4 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, like, or } from "drizzle-orm";
 import { prompts } from "../drizzle/schema";
 import { getDb } from "./db";
 
@@ -10,6 +10,7 @@ export type PromptLanguage = (typeof promptLanguages)[number];
 export type PromptFilters = {
   category?: PromptCategory;
   language?: PromptLanguage;
+  search?: string;
 };
 
 export type PromptWriteInput = {
@@ -38,6 +39,11 @@ export async function listPrompts(filters: PromptFilters = {}, includeAll = fals
   }
   if (filters.category) conditions.push(eq(prompts.category, filters.category));
   if (filters.language) conditions.push(eq(prompts.language, filters.language));
+  const search = filters.search?.trim();
+  if (search) {
+    const keyword = `%${search}%`;
+    conditions.push(or(like(prompts.title, keyword), like(prompts.useCase, keyword), like(prompts.description, keyword), like(prompts.promptText, keyword))!);
+  }
 
   return db.select().from(prompts).where(conditions.length ? and(...conditions) : undefined).orderBy(asc(prompts.sortOrder), asc(prompts.title));
 }

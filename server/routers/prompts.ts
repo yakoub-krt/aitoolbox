@@ -21,7 +21,7 @@ export const promptInputSchema = z.object({
 });
 
 export const promptsRouter = router({
-  list: publicProcedure.input(z.object({ category: categorySchema.optional(), language: languageSchema.optional() }).optional()).query(({ input }) => listPrompts(input)),
+  list: publicProcedure.input(z.object({ category: categorySchema.optional(), language: languageSchema.optional(), search: z.string().trim().max(100).optional() }).optional()).query(({ input }) => listPrompts(input)),
   adminList: adminProcedure.query(() => listPrompts({}, true)),
   create: adminProcedure.input(promptInputSchema).mutation(async ({ input }) => { await createPrompt(input); return { success: true }; }),
   update: adminProcedure.input(z.object({ id: z.number().int().positive(), data: promptInputSchema })).mutation(async ({ input }) => { await updatePrompt(input.id, input.data); return { success: true }; }),
