@@ -36,7 +36,7 @@ export default function ArticleTableOfContents({ headings }: ArticleTableOfConte
   if (!headings.length) return null;
 
   return (
-    <nav aria-labelledby="article-toc-title" className="mt-8 rounded-2xl border border-violet-300/20 bg-violet-500/[0.07] p-5 shadow-[0_12px_32px_rgba(0,0,0,.12)]">
+    <nav id="article-toc" aria-labelledby="article-toc-title" className="mt-8 scroll-mt-28 rounded-2xl border border-violet-300/20 bg-violet-500/[0.07] p-5 shadow-[0_12px_32px_rgba(0,0,0,.12)]">
       <div className="flex items-center gap-2 text-white">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-400/15 text-violet-200"><ListTree className="h-4 w-4" aria-hidden="true" /></span>
         <div>

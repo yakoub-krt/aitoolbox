@@ -63,3 +63,8 @@
 - [x] Unify TOC link generation and rendered heading IDs so repeated section titles retain unique working anchors.
 - [x] Add coverage proving duplicate-heading TOC entries resolve to the matching rendered heading IDs.
 - [x] Verify the TOC on an additional long-form article for desktop and mobile, including a table-heavy guide.
+- [x] Review article-page scroll behavior and define a safe target for returning visitors to the table of contents.
+- [x] Add a floating return button that appears after scrolling and moves readers back to the top and table of contents.
+- [x] Add a dynamic reading-progress bar at the top of article pages and verify its responsive scroll behavior with tests.
+- [x] Add component or browser-level coverage that verifies progress-bar updates during scrolling and return-button visibility.
+- [x] Verify the reading-progress bar and floating return button after scrolling through a long article on desktop and mobile, then capture evidence.

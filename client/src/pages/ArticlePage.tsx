@@ -1,6 +1,7 @@
 import ArticleCard, { ArticlePreview } from "@/components/ArticleCard";
 import BlogShell from "@/components/BlogShell";
 import AdSlot from "@/components/AdSlot";
+import ArticleReadingControls from "@/components/ArticleReadingControls";
 import ArticleTableOfContents from "@/components/ArticleTableOfContents";
 import SaveButton from "@/components/SaveButton";
 import ShareButtons from "@/components/ShareButtons";
@@ -54,7 +55,8 @@ export default function ArticlePage() {
   const keywords = article.keywords.split(",").map(item => item.trim()).filter(Boolean);
   const headings = getArticleHeadings(article.content);
   return <BlogShell>
-    <article className="container max-w-4xl py-12 md:py-18">
+    <ArticleReadingControls articleId="article-reading-surface" tocId="article-toc" />
+    <article id="article-reading-surface" className="container max-w-4xl py-12 md:py-18">
       <Link href={article.sectionSlug ? `/sections/${article.sectionSlug}` : "/"} className="inline-flex items-center gap-2 text-sm font-semibold text-violet-200 hover:text-white"><ArrowRight className="h-4 w-4" />{article.sectionName ?? "كل المقالات"}</Link>
       <h1 className="mt-6 font-display text-3xl font-black leading-[1.35] text-white md:text-5xl">{article.title}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-9 text-slate-300">{article.excerpt}</p>
