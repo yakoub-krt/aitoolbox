@@ -4,6 +4,7 @@ import { copyPromptText } from "@/lib/promptCopy";
 import { trpc } from "@/lib/trpc";
 import { Check, Clapperboard, Copy, Image, Megaphone, Sparkles, Wand2 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { Link } from "wouter";
 
 const categoryLabels = {
   image_to_video: "صورة إلى فيديو",
@@ -50,6 +51,7 @@ export default function PromptsLibraryPage() {
           <p className="mt-5 text-sm font-semibold text-violet-300">مكتبة AIToolBox</p>
           <h1 className="mt-3 max-w-3xl font-display text-4xl font-black leading-tight text-white md:text-5xl">Prompts عربية وإنجليزية جاهزة للتجربة</h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">اختر المهمة، انسخ الـPrompt، ثم عدّل ما بين الأقواس ليناسب منتجك أو فكرتك أو الفيديو الذي تريد صنعه. جميع العناصر الظاهرة مجانية الآن.</p>
+          <Link href="/prompt-customizer" className="mt-6 inline-flex items-center rounded-xl bg-violet-500 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-violet-400">جرّب مُخصِّص الـPrompt المجاني</Link>
         </div>
         <div className="rounded-3xl border border-white/10 bg-[#0d1228]/75 p-5 shadow-[0_16px_45px_rgba(0,0,0,.22)]">
           <p className="text-sm font-bold text-white">طريقة استعمال سريعة</p>

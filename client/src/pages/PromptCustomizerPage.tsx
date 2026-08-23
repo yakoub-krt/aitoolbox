@@ -1,0 +1,50 @@
+import BlogShell from "@/components/BlogShell";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { startLogin } from "@/const";
+import { copyPromptText } from "@/lib/promptCopy";
+import { buildCustomPrompt, customizerTemplates, defaultCustomizerValues, type CustomizerLanguage, type CustomizerTemplate } from "@/lib/promptCustomizer";
+import { Check, Clapperboard, Copy, Image, LogIn, Sparkles, Video } from "lucide-react";
+import { useMemo, useState } from "react";
+
+const templateIcons = { product_video: Clapperboard, product_ad: Image, educational_reel: Video };
+
+export default function PromptCustomizerPage() {
+  const { isAuthenticated } = useAuth();
+  const [template, setTemplate] = useState<CustomizerTemplate>("product_video");
+  const [language, setLanguage] = useState<CustomizerLanguage>("ar");
+  const [values, setValues] = useState(defaultCustomizerValues);
+  const [copied, setCopied] = useState(false);
+  const output = useMemo(() => buildCustomPrompt(template, language, values), [template, language, values]);
+
+  function changeValue(key: keyof typeof values, value: string) { setValues(current => ({ ...current, [key]: value })); }
+  async function copyOutput() {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("clipboard-unavailable");
+      await copyPromptText(output, value => navigator.clipboard.writeText(value));
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch { setCopied(false); }
+  }
+
+  const templateIcon = templateIcons[template];
+  const TemplateIcon = templateIcon;
+  return <BlogShell>
+    <section className="border-b border-white/8 bg-[radial-gradient(circle_at_80%_10%,rgba(34,211,238,.16),transparent_28%),radial-gradient(circle_at_16%_20%,rgba(139,92,246,.22),transparent_33%)]"><div className="container py-14"><div className="max-w-3xl"><p className="inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 text-xs font-bold text-emerald-100"><Sparkles className="h-3.5 w-3.5" />مجاناً — خصّص ثم انسخ</p><p className="mt-5 text-sm font-semibold text-violet-300">مُخصِّص AIToolBox</p><h1 className="mt-3 font-display text-4xl font-black leading-tight text-white md:text-5xl">اصنع Prompt يناسب فكرتك في دقائق</h1><p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">اختر قالباً، املأ التفاصيل البسيطة، ثم انسخ النتيجة العربية أو الإنجليزية. لا تحتاج إلى حساب للاستعمال أو النسخ.</p></div></div></section>
+    <section className="container py-10"><div className="grid gap-6 lg:grid-cols-[.78fr_1.22fr]">
+      <aside className="space-y-5"><section className="rounded-3xl border border-white/10 bg-white/[0.035] p-5"><p className="text-sm font-bold text-white">اختر القالب</p><div className="mt-4 grid gap-2">{(Object.keys(customizerTemplates) as CustomizerTemplate[]).map(key => { const Icon = templateIcons[key]; const active = template === key; return <button key={key} onClick={() => setTemplate(key)} className={`flex items-center gap-3 rounded-2xl p-3 text-right transition ${active ? "bg-violet-500/20 ring-1 ring-violet-300/40" : "bg-white/[0.025] hover:bg-white/[0.06]"}`}><span className="grid h-9 w-9 place-items-center rounded-xl bg-violet-400/10 text-violet-200"><Icon className="h-4 w-4" /></span><span><strong className="block text-sm text-white">{customizerTemplates[key].label}</strong><span className="mt-0.5 block text-xs text-slate-400">{customizerTemplates[key].description}</span></span></button>; })}</div></section>
+        <section className="rounded-3xl border border-white/10 bg-white/[0.035] p-5"><p className="text-sm font-bold text-white">لغة الـPrompt</p><div className="mt-3 flex gap-2"><button onClick={() => setLanguage("ar")} className={`rounded-xl px-4 py-2 text-sm font-bold ${language === "ar" ? "bg-violet-500 text-white" : "bg-white/5 text-slate-300"}`}>العربية</button><button onClick={() => setLanguage("en")} className={`rounded-xl px-4 py-2 text-sm font-bold ${language === "en" ? "bg-violet-500 text-white" : "bg-white/5 text-slate-300"}`}>English</button></div></section>
+      </aside>
+      <div className="space-y-6"><section className="rounded-3xl border border-white/10 bg-white/[0.035] p-6"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-2xl bg-cyan-400/10 text-cyan-200"><TemplateIcon className="h-5 w-5" /></span><div><p className="font-display text-xl font-black text-white">{customizerTemplates[template].label}</p><p className="text-xs text-slate-400">عدّل التفاصيل بين الحقول، وسيتحدث النص مباشرة.</p></div></div><div className="mt-6 grid gap-4 md:grid-cols-2">
+        {template !== "educational_reel" && <><label className="text-xs font-bold text-slate-400">المنتج أو العنصر<Input value={values.product} onChange={event => changeValue("product", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label><label className="text-xs font-bold text-slate-400">الخلفية أو البيئة<Input value={values.background} onChange={event => changeValue("background", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label><label className="text-xs font-bold text-slate-400">نسبة العرض<Input dir="ltr" value={values.format} onChange={event => changeValue("format", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label></>}
+        {template === "product_video" && <><label className="text-xs font-bold text-slate-400">المدة بالثواني<Input dir="ltr" value={values.duration} onChange={event => changeValue("duration", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label><label className="text-xs font-bold text-slate-400">حركة الكاميرا<Input value={values.cameraMove} onChange={event => changeValue("cameraMove", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label></>}
+        {template === "product_ad" && <label className="text-xs font-bold text-slate-400">مكان مساحة النص<Input value={values.placement} onChange={event => changeValue("placement", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label>}
+        {template === "educational_reel" && <><label className="text-xs font-bold text-slate-400 md:col-span-2">الموضوع<Input value={values.topic} onChange={event => changeValue("topic", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label><label className="text-xs font-bold text-slate-400">المدة بالثواني<Input dir="ltr" value={values.duration} onChange={event => changeValue("duration", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label><label className="text-xs font-bold text-slate-400">النبرة<Input value={values.tone} onChange={event => changeValue("tone", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label><label className="text-xs font-bold text-slate-400 md:col-span-2">الدعوة في النهاية<Input value={values.callToAction} onChange={event => changeValue("callToAction", event.target.value)} className="mt-1.5 border-white/10 bg-[#080b1c] text-white" /></label></>}
+      </div></section>
+      <section className="rounded-3xl border border-violet-300/20 bg-[linear-gradient(135deg,rgba(124,58,237,.13),rgba(34,211,238,.06))] p-6"><div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-xs font-bold text-violet-200">النتيجة الجاهزة</p><h2 className="mt-1 font-display text-xl font-black text-white">انسخ الـPrompt واستخدمه مباشرة</h2></div><Button onClick={copyOutput} className={copied ? "bg-emerald-500 hover:bg-emerald-500" : "bg-violet-500 hover:bg-violet-400"}>{copied ? <><Check className="ml-2 h-4 w-4" />تم النسخ</> : <><Copy className="ml-2 h-4 w-4" />نسخ الـPrompt</>}</Button></div><pre dir={language === "en" ? "ltr" : "rtl"} className={`mt-5 max-h-80 overflow-y-auto whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#080b1b]/90 p-5 font-sans text-sm leading-8 text-slate-100 ${language === "en" ? "text-left" : "text-right"}`}>{output}</pre></section>
+      {!isAuthenticated && <section className="flex flex-col gap-4 rounded-3xl border border-cyan-300/20 bg-cyan-400/[0.06] p-5 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-bold text-cyan-100">هل تريد الاحتفاظ بقوالبك لاحقاً؟</p><p className="mt-1 text-sm leading-7 text-slate-300">سجّل دخولك مجاناً لتجهيز حسابك لحفظ الـPrompts المفضلة والنسخ المخصصة عند تفعيل الحفظ. الاستعمال والنسخ سيبقيان مجانيين.</p></div><Button onClick={() => startLogin()} variant="outline" className="shrink-0 border-cyan-200/30 bg-cyan-300/10 text-cyan-50 hover:bg-cyan-300/20"><LogIn className="ml-2 h-4 w-4" />تسجيل مجاني</Button></section>}
+      </div>
+    </div></section>
+  </BlogShell>;
+}

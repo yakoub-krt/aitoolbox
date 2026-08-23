@@ -73,3 +73,8 @@
 - [x] Seed a curated free launch collection of Arabic and English prompts for image-to-video, product ads, image generation, image enhancement, and short-form content.
 - [x] Build a public Arabic RTL prompt-library page with bilingual filters, prompt cards, direct copying, and clear free-access messaging.
 - [x] Add prompt-library navigation, protected content management, tests, and desktop/mobile verification.
+- [x] Define a bilingual prompt-customizer model for product image-to-video, product ad image, and educational Reel templates.
+- [x] Implement deterministic prompt generation for the three customizer templates with Arabic and English outputs.
+- [x] Build a public customizer page with free generation, direct copying, and helpful guidance for replacing template fields.
+- [x] Add respectful account-signup calls to action explaining future saving of favourites and custom prompts without blocking free use.
+- [x] Add tests and desktop/mobile verification for prompt customization, copying, and account-callout presentation.
