@@ -5,6 +5,14 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     {
+      "source": "/api/trpc/(.*)",
+      "destination": "https://aitoolbox-qe3ypjf9.manus.space/api/trpc/$1"
+    },
+    {
+      "source": "/manus-storage/(.*)",
+      "destination": "https://aitoolbox-qe3ypjf9.manus.space/manus-storage/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

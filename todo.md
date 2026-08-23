@@ -145,6 +145,8 @@
 - [ ] Prepare a Vercel migration plan that preserves AIToolBox server, database, authentication, and storage functionality.
 - [ ] Build and validate a Vercel-ready public-site variant while documenting the account and admin features retained in Manus.
 - [ ] Fix the Vercel deployment routing so the public URL serves the AIToolBox interface rather than server source code.
+- [ ] Export the published articles, tools, prompts, and sections into a reviewed static snapshot for the Vercel public variant.
+- [ ] Proxy public tRPC content and managed storage through Vercel rewrites so public pages retain real Manus-backed data.
 - [ ] Restore write access to yakoub-krt/aitoolbox and push the Vercel routing fix to the deployment branch.
 - [x] Run a fresh full-project diagnostics pass covering tests, TypeScript, build output, logs, public routes, and responsive layouts.
 - [x] Fix all reproducible internal defects found in the fresh diagnostics pass and document any remaining third-party prerequisites.

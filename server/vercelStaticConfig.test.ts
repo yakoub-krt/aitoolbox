@@ -8,6 +8,14 @@ describe("Vercel static site configuration", () => {
     expect(config.framework).toBe("vite");
     expect(config.buildCommand).toBe("pnpm run build:vercel");
     expect(config.outputDirectory).toBe("dist/public");
+    expect(config.rewrites).toContainEqual({
+      source: "/api/trpc/(.*)",
+      destination: "https://aitoolbox-qe3ypjf9.manus.space/api/trpc/$1",
+    });
+    expect(config.rewrites).toContainEqual({
+      source: "/manus-storage/(.*)",
+      destination: "https://aitoolbox-qe3ypjf9.manus.space/manus-storage/$1",
+    });
     expect(config.rewrites).toContainEqual({ source: "/(.*)", destination: "/index.html" });
   });
 });
