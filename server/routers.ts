@@ -7,6 +7,7 @@ import { blogRouter } from "./routers/blog";
 import { contactRouter } from "./routers/contact";
 import { newsletterRouter } from "./routers/newsletter";
 import { toolsRouter } from "./routers/tools";
+import { engagementRouter } from "./routers/engagement";
 
 export const appRouter = router({
   system: systemRouter,
@@ -23,6 +24,7 @@ export const appRouter = router({
   contact: contactRouter,
   newsletter: newsletterRouter,
   tools: toolsRouter,
+  engagement: engagementRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -13,6 +13,8 @@ const navItems = [
   { label: "الإنتاجية", path: "/sections/productivity" },
   { label: "دليل الأدوات", path: "/tools" },
   { label: "المقارنة", path: "/compare" },
+  { label: "الأفضل", path: "/best-ai-tools" },
+  { label: "محفوظاتي", path: "/saved" },
 ];
 
 export default function BlogShell({ children }: { children: React.ReactNode }) {

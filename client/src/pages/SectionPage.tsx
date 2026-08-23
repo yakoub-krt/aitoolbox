@@ -7,10 +7,12 @@ import { Link, useRoute } from "wouter";
 export default function SectionPage() {
   const [, params] = useRoute("/sections/:slug");
   const slug = params?.slug ?? "";
-  const input = useMemo(() => ({ sectionSlug: slug }), [slug]);
-  const { data: articles, isLoading, error } = trpc.blog.list.useQuery(input);
+  const input = useMemo(() => ({ sectionSlug: slug || "missing-section" }), [slug]);
+  const { data: articles, isLoading, error } = trpc.blog.list.useQuery(input, { enabled: Boolean(slug) });
   const { data: sections } = trpc.blog.sections.useQuery();
   const section = sections?.find(item => item.slug === slug);
+
+  if (!slug) return <BlogShell><div className="container py-24 text-center"><h1 className="font-display text-3xl font-bold text-white">لم نجد هذا القسم</h1><Link href="/" className="mt-5 inline-block text-violet-200">العودة إلى المدونة</Link></div></BlogShell>;
 
   return <BlogShell>
     <section className="border-b border-white/8 bg-[radial-gradient(circle_at_75%_0%,rgba(139,92,246,.22),transparent_38%)]"><div className="container py-16"><p className="text-sm font-semibold text-violet-300">قسم AIToolBox</p><h1 className="mt-3 font-display text-4xl font-black text-white">{section?.name ?? "المقالات"}</h1><p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">{section?.description ?? "مجموعة من المقالات العملية والمراجعات العربية."}</p></div></section>

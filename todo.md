@@ -38,3 +38,10 @@
 - [ ] Activate Google AdSense only after the owner provides a publisher ID, valid ad slots, and a permanent verified domain.
 - [ ] Link a permanent user-owned domain to AIToolBox before activating live Resend delivery or Google AdSense.
 - [x] Add the owner credit “By Yakoub Kartouche” to the site footer with accessible, responsive styling.
+- [x] Define data models for visitor suggestions, editorial tool FAQs, and saved content preferences.
+- [x] Add public procedures for saving and retrieving favourite articles and tools, with local fallback for anonymous visitors.
+- [x] Add public suggestion submission with validation and protected admin review of suggestions.
+- [x] Add editable FAQ entries to tool records and render accessible FAQ sections in the directory.
+- [x] Create a curated “Best AI Tools 2026” page using the existing factual tool directory data.
+- [x] Enhance the homepage with a featured-tools showcase, best-tools callout, and visitor suggestion call to action.
+- [x] Test favourites, suggestions, FAQs, best-tools content, and responsive homepage presentation.

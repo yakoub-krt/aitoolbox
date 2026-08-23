@@ -116,9 +116,55 @@ export const tools = mysqlTable(
   }),
 );
 
+export const toolFaqs = mysqlTable(
+  "toolFaqs",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    toolId: int("toolId").notNull().references(() => tools.id, { onDelete: "cascade" }),
+    question: varchar("question", { length: 255 }).notNull(),
+    answer: text("answer").notNull(),
+    sortOrder: int("sortOrder").notNull().default(0),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => ({ toolIndex: index("tool_faqs_tool_idx").on(table.toolId, table.sortOrder) }),
+);
+
+export const visitorSuggestions = mysqlTable(
+  "visitorSuggestions",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    title: varchar("title", { length: 180 }).notNull(),
+    details: text("details").notNull(),
+    category: mysqlEnum("category", ["tool", "comparison", "article", "other"]).notNull().default("tool"),
+    status: mysqlEnum("status", ["pending", "reviewed", "implemented"]).notNull().default("pending"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  },
+  table => ({ statusIndex: index("suggestions_status_idx").on(table.status, table.createdAt) }),
+);
+
+export const savedItems = mysqlTable(
+  "savedItems",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+    articleId: int("articleId").references(() => articles.id, { onDelete: "cascade" }),
+    toolId: int("toolId").references(() => tools.id, { onDelete: "cascade" }),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  },
+  table => ({
+    userArticleUnique: uniqueIndex("saved_items_user_article_unique").on(table.userId, table.articleId),
+    userToolUnique: uniqueIndex("saved_items_user_tool_unique").on(table.userId, table.toolId),
+    userIndex: index("saved_items_user_idx").on(table.userId, table.createdAt),
+  }),
+);
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Section = typeof sections.$inferSelect;
 export type Article = typeof articles.$inferSelect;
 export type Subscriber = typeof subscribers.$inferSelect;
 export type Tool = typeof tools.$inferSelect;
+export type ToolFaq = typeof toolFaqs.$inferSelect;
+export type VisitorSuggestion = typeof visitorSuggestions.$inferSelect;

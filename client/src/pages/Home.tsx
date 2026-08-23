@@ -1,11 +1,12 @@
 import ArticleCard, { ArticlePreview } from "@/components/ArticleCard";
 import BlogShell from "@/components/BlogShell";
 import NewsletterForm from "@/components/NewsletterForm";
+import SuggestionForm from "@/components/SuggestionForm";
 import AdSlot from "@/components/AdSlot";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { ArrowLeft, Bot, Image, PenTool, PlaySquare, Scale, Sparkles, TimerReset } from "lucide-react";
+import { ArrowLeft, Bot, Image, PenTool, PlaySquare, Scale, Sparkles, TimerReset, Wrench } from "lucide-react";
 import { Link } from "wouter";
 
 const sectionDetails = [
@@ -23,6 +24,7 @@ function ArticleGridSkeleton() {
 export default function Home() {
   const { data: articles, isLoading } = trpc.blog.list.useQuery();
   const { data: sections } = trpc.blog.sections.useQuery();
+  const { data: tools } = trpc.tools.list.useQuery();
   const featured = articles?.[0] as ArticlePreview | undefined;
   const recent = (articles?.slice(1, 7) ?? []) as ArticlePreview[];
 
@@ -54,11 +56,14 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="container pb-16"><div className="overflow-hidden rounded-[2rem] border border-cyan-300/15 bg-[radial-gradient(circle_at_12%_20%,rgba(34,211,238,.16),transparent_35%),linear-gradient(110deg,#10142b,#0a0c1b)] p-7 md:p-10"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="flex items-center gap-2 text-sm font-bold text-cyan-200"><Wrench className="h-4 w-4" />اختيارات من الدليل</p><h2 className="mt-3 font-display text-3xl font-black text-white">أفضل أدوات الذكاء الاصطناعي لعام 2026</h2><p className="mt-3 max-w-2xl leading-7 text-slate-300">قائمة تحريرية منظمة حسب المهمة، تعتمد على المعلومات العملية المتاحة في دليل الأدوات وليست قائمة تقييمات مستخدمين.</p></div><Button asChild className="bg-cyan-400 text-slate-950 hover:bg-cyan-300"><Link href="/best-ai-tools">عرض أفضل الأدوات <ArrowLeft className="mr-2 h-4 w-4" /></Link></Button></div>{tools?.length ? <div className="mt-8 grid gap-3 md:grid-cols-3">{tools.slice(0, 3).map(tool => <Link key={tool.id} href="/tools" className="rounded-2xl border border-white/10 bg-black/20 p-4 transition hover:border-cyan-300/50"><p className="font-display text-lg font-black text-white">{tool.name}</p><p className="mt-2 text-xs leading-6 text-slate-400">{tool.bestFor}</p></Link>)}</div> : null}</div></section>
+
       <section className="container pb-16">
         <div className="mb-8 flex items-center justify-between"><div><p className="text-sm font-semibold text-cyan-300">من AIToolBox</p><h2 className="mt-2 font-display text-3xl font-bold text-white">أحدث ما نُشر</h2></div><Link href="/search" className="flex items-center gap-1 text-sm font-semibold text-violet-200 hover:text-white">كل المقالات <ArrowLeft className="h-4 w-4" /></Link></div>
         {isLoading ? <ArticleGridSkeleton /> : featured ? <><ArticleCard article={featured} featured /><div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{recent.map(article => <ArticleCard key={article.id} article={article} />)}</div></> : <div className="rounded-3xl border border-dashed border-white/15 p-12 text-center text-slate-400">ستظهر المقالات هنا فور تجهيزها.</div>}
       </section>
       <section className="container pb-4"><NewsletterForm /></section>
+      <section className="container pb-4"><SuggestionForm /></section>
     </BlogShell>
   );
 }
