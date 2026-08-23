@@ -160,4 +160,6 @@
 - [x] Enhance the public About and Contact pages with transparent ownership, editorial, and communication information.
 - [x] Add route-aware Arabic SEO titles, descriptions, and topical keywords to public AIToolBox pages.
 - [x] Improve the public newsletter subscription form with clearer value, explicit consent, and accessible feedback while retaining safe email collection.
+- [x] Add subtle staggered entrance motion to the public AIToolBox homepage, respecting reduced-motion preferences.
+- [ ] Connect the newsletter to a verified transactional-email service after the owner selects a provider and provides a verified sender and API credentials.
 - [x] Verify tool-comparison selections navigate using query parameters and render correctly on the Vercel comparison page; opening `/compare` without selections intentionally shows the guidance state.
