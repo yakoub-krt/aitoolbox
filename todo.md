@@ -113,3 +113,5 @@
 - [x] Add responsible-use guidance, navigation links, tests, and desktop/mobile verification for the student workspace.
 - [x] Fix the reported student-workspace tool-opening issue and verify every tool visibly opens on desktop and mobile.
 - [x] Expand every student-workspace tool into a feature-rich interactive workflow with editable inputs, useful generated outputs, and clear actions.
+- [x] Build a student tools directory organised by specialisation with trusted direct links and study-focused use cases.
+- [x] Add student-directory navigation, tests, and desktop/mobile verification.
