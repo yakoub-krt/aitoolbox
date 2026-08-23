@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import NewsletterForm from "@/components/NewsletterForm";
-import { BookOpen, Search, Sparkles } from "lucide-react";
+import { BookOpen, Menu, Search, Sparkles } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { FormEvent, useState } from "react";
 import { Link, useLocation } from "wouter";
 
@@ -23,6 +24,7 @@ const navItems = [
 export default function BlogShell({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
   const [searchValue, setSearchValue] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,13 +36,13 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen overflow-x-hidden bg-[#060816] text-slate-100" dir="rtl">
       <header className="sticky top-0 z-40 border-b border-white/8 bg-[#080b1c]/90 backdrop-blur-xl">
         <div className="container flex h-20 items-center justify-between gap-6">
-          <Link href="/" className="group flex items-center gap-3" aria-label="العودة إلى الصفحة الرئيسية">
-            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_28px_rgba(139,92,246,.35)] transition-transform duration-200 group-hover:-rotate-6">
+          <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3" aria-label="العودة إلى الصفحة الرئيسية">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_28px_rgba(139,92,246,.35)] transition-transform duration-200 group-hover:-rotate-6 sm:h-10 sm:w-10 sm:rounded-2xl">
               <Sparkles className="h-5 w-5 text-white" />
             </span>
             <span className="leading-tight">
-              <strong className="block font-display text-lg tracking-tight text-white">AIToolBox</strong>
-              <span className="block text-[10px] font-semibold tracking-[0.2em] text-violet-200/80">دليل الأدوات الذكية</span>
+              <strong className="block font-display text-base tracking-tight text-white sm:text-lg">AIToolBox</strong>
+              <span className="hidden text-[10px] font-semibold tracking-[0.2em] text-violet-200/80 sm:block">دليل الأدوات الذكية</span>
             </span>
           </Link>
 
@@ -72,13 +74,19 @@ export default function BlogShell({ children }: { children: React.ReactNode }) {
             </Button>
           </form>
 
-          <Link href="/search" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-slate-300 md:hidden" aria-label="فتح البحث">
-            <Search className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="border-t border-white/5 lg:hidden">
-          <div className="container flex h-11 items-center gap-5 overflow-x-auto whitespace-nowrap text-xs text-slate-400">
-            {navItems.map(item => <Link key={item.path} href={item.path} className="hover:text-violet-200">{item.label}</Link>)}
+          <div className="flex items-center gap-2 md:hidden">
+            <Link href="/search" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-slate-300" aria-label="فتح البحث">
+              <Search className="h-4 w-4" />
+            </Link>
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild><Button type="button" variant="outline" size="icon" className="h-10 w-10 border-white/10 bg-white/5 text-slate-200 hover:bg-white/10 hover:text-white" aria-label="فتح قائمة التنقل"><Menu className="h-4 w-4" /></Button></SheetTrigger>
+              <SheetContent side="right" className="w-[86vw] max-w-sm border-white/10 bg-[#080b1c] text-slate-100" dir="rtl">
+                <SheetHeader className="border-b border-white/8 pb-5 text-right"><SheetTitle className="font-display text-xl text-white">استكشف AIToolBox</SheetTitle><p className="text-sm leading-6 text-slate-400">اختر المسار الذي يناسب مهمتك الآن.</p></SheetHeader>
+                <nav className="mt-5 grid gap-2" aria-label="التنقل على الهاتف">
+                  {navItems.map(item => <Link key={item.path} href={item.path} onClick={() => setMobileMenuOpen(false)} className={`rounded-xl border px-4 py-3 text-sm font-semibold transition ${location === item.path ? "border-violet-300/40 bg-violet-400/15 text-violet-100" : "border-white/8 bg-white/[0.035] text-slate-300 hover:border-cyan-300/30 hover:bg-cyan-300/[0.06] hover:text-white"}`}>{item.label}</Link>)}
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
