@@ -129,4 +129,7 @@
 - [x] Test the locally registered GitHub account credential without the session token before requesting additional repository-write authorization.
 - [x] Issue and complete a fresh GitHub device authorization after the prior one-time code expired.
 - [x] Reconcile duplicated learning-plan tasks with the verified implementation before continuing the remaining directory work.
-- [ ] Document the exact owner-supplied details still required to activate live email delivery and advertising after internal work is complete.
+- [x] Document the exact owner-supplied details still required to activate live email delivery and advertising after internal work is complete.
+- [x] Assess Vercel compatibility for the current Express, database, and Manus OAuth architecture before external deployment.
+- [x] Prepare deployment documentation for the selected hosting path without publishing the site automatically.
+- [x] Create and verify a concrete non-publishing deployment guide covering Manus and the prerequisites for a Vercel migration.
