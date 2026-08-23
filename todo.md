@@ -122,3 +122,9 @@
 - [x] Improve mobile navigation discoverability so public route links remain easy to access without a crowded header.
 - [x] Add an Arabic terms-of-use page and strengthen the privacy and ad/cookie disclosures with accessible footer navigation.
 - [x] Verify the legal pages, footer links, and responsive presentation before saving the compliance update.
+- [ ] Verify GitHub repository access, review the current AIToolBox files for secrets, and push the verified project snapshot to the user-provided repository.
+- [ ] Confirm access to github.com/7g9bfz4k5c-jpg/toolaibox and push the current verified AIToolBox snapshot without secrets.
+- [x] Resolve GitHub CLI access to the newly created private toolaibox repository before pushing the verified snapshot.
+- [x] Guide the owner through GitHub App repository access if Manus does not expose a reconnect control, then re-check write permission.
+- [x] Test the locally registered GitHub account credential without the session token before requesting additional repository-write authorization.
+- [x] Issue and complete a fresh GitHub device authorization after the prior one-time code expired.
