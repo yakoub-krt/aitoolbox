@@ -49,3 +49,11 @@
 - [x] Build an interactive Arabic tool-selection advisor using the existing tool directory data.
 - [x] Add clear recommendation reasoning, links to the directory and comparison flow, and owner credit “By Yakoub Kartouche”.
 - [x] Test advisor paths, recommendation output, mobile presentation, and routing from the homepage.
+- [x] Audit the ten foundational article records for length, missing practical steps, tables, examples, and internal links.
+- [x] Expand the ten foundational articles into substantial Arabic guides with clear structure, practical examples, limitations, and reader actions.
+- [x] Add or strengthen contextual FAQs and tool-comparison tables where appropriate without fabricating claims.
+- [x] Verify long-form article rendering on desktop and mobile, content depth, and reading flow after database updates.
+- [ ] Design a practical seven-day Arabic AI learning path for beginners with clear daily outcomes and safe-use guidance.
+- [ ] Build an interactive learning-plan page with day completion tracking and a local saved-progress fallback.
+- [ ] Link each learning day to relevant AIToolBox articles or official tool pages and show the “By Yakoub Kartouche” credit.
+- [ ] Add learning-plan navigation from the homepage and verify desktop/mobile progress behavior.
